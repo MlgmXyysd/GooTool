@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Gootool</string>
+    <string name="app_label">World Of Goo Mod Manager</string>
+    <string name="action_about">About</string>
+    <string name="btn_remove">Remove</string>
+    <string name="btn_delete">Delete selected</string>
+    <string name="add">Select a mod File to add</string>
+    <string name="managernotfound">Please install a File Manager.</string>
+    <string name="deleted">Deleted selected goomods. Don\'t forget to save changes.</string>
+    <string name="delete_select">Click on goomod\'s name to select</string>
+    <string name="cantopen">Couldn\'t open file.</string>
+    <string name="invaild">Invalid addin file.</string>
+    <string name="readerror">File read error.</string>
+    <string name="added">Addin already added.</string>
+    <string name="goomodadded">Successfully added addin. Don\'t forget to save changes.</string>
+    <string name="crash">Sorry,the application crash has stoped unexpectedly.</string>
+    <string name="generating">Generating modded APK (progress bar not implemented yet)</string>
+    <string name="signing">Signing modded APK</string>
+</resources>
