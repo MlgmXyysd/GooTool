@@ -198,17 +198,17 @@ public class WorldOfGooAndroid extends WorldOfGoo {
     if(filename.contains(".")) {
       if(filename.endsWith(".bin") || filename.endsWith(".xml")) {
         return new File(loc, filename.substring(0, filename.length() - 4) + ".mp3");
-      } else if(filename.endsWith(".*")
+      } else //if(
               //filename.endsWith(".png") ||
               //filename.endsWith(".binltl") ||
               //filename.endsWith(".binltl64") ||
               //filename.endsWith(".ogg") ||
-              //filename.endsWith(".txt")
-      ) {
+              //filename.endsWith(".txt"))
+        {
         return new File(loc, filename + ".mp3");
-      } else {
-        throw new UnsupportedOperationException("Unknown file format: " + filename);
-      }
+      }// else {
+       // throw new UnsupportedOperationException("Unknown file format: " + filename);
+     // }
     }
     return new File(loc, filename);
   }
