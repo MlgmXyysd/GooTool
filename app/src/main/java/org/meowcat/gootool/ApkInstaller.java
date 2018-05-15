@@ -4,6 +4,7 @@
 
 package org.meowcat.gootool;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -31,9 +32,10 @@ public class ApkInstaller implements View.OnClickListener {
   private final ProgressBar progress;
   private final MainActivity a;
   private TextView text;
+  @SuppressLint("StaticFieldLeak")
   private static android.content.Context Context;
 
-  public ApkInstaller(MainActivity a, ProgressBar progress, TextView text) {
+  ApkInstaller(MainActivity a, ProgressBar progress, TextView text) {
     this.progress = progress;
     this.a = a;
     this.text = text;
@@ -48,15 +50,18 @@ public class ApkInstaller implements View.OnClickListener {
 
   private static final class InstallModsTask extends AsyncTask<Void, ProgressData, Boolean> {
 
+    @SuppressLint("StaticFieldLeak")
     private final ProgressBar progress;
+    @SuppressLint("StaticFieldLeak")
     private TextView text;
+    @SuppressLint("StaticFieldLeak")
     private final MainActivity a;
     private PackageManager pkgMgr;
 
     private int taskNum = -1;
     private final int maxTask = 2;
 
-    public InstallModsTask(ProgressBar progress, MainActivity act, TextView text) {
+    InstallModsTask(ProgressBar progress, MainActivity act, TextView text) {
       this.progress = progress;
       this.text = text;
 
@@ -109,7 +114,6 @@ public class ApkInstaller implements View.OnClickListener {
     }
 
     private void signApk(File apk, File signed) {
-      File unsigned = apk;
       try {
         ZipSigner signer = new ZipSigner();
         signer.addProgressListener(new ProgressListener() {
@@ -120,7 +124,7 @@ public class ApkInstaller implements View.OnClickListener {
         });
         signer.setKeymode(ZipSigner.MODE_AUTO);
         signer.loadKeys(ZipSigner.KEY_TESTKEY);
-        signer.signZip(unsigned.getPath(), signed.getPath());
+        signer.signZip(apk.getPath(), signed.getPath());
       } catch (ClassNotFoundException e) {
         Log.wtf(TAG, e);
       } catch (IllegalAccessException e) {

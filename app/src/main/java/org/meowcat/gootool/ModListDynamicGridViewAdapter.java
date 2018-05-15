@@ -25,7 +25,7 @@ import java.util.List;
 public class ModListDynamicGridViewAdapter extends BaseDynamicGridAdapter {
   private boolean removeMode = false;
 
-  public ModListDynamicGridViewAdapter(Context context, DynamicGridView dgv) {
+  ModListDynamicGridViewAdapter(Context context, DynamicGridView dgv) {
     super(context, new ArrayList<>(), 1);
   }
 
@@ -74,7 +74,6 @@ public class ModListDynamicGridViewAdapter extends BaseDynamicGridAdapter {
       GoomodEntry e = (GoomodEntry) getItem(i);
       if(e.isToRemove()) {
         remove(e);
-        //TODO: make it async
         e.getAddin().getDiskFile().delete();
       }
     }

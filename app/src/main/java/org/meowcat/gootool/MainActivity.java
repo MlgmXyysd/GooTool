@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
         }
       }
     });
-
+    //TODO: Merge changeOrder Button & installModsBtn Button
     this.changeOrder = (Button) findViewById(R.id.changeOrderButton);
     this.changeOrder.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -284,7 +284,6 @@ public class MainActivity extends AppCompatActivity {
       pb.setProgress(0);
       text.setText("");
 
-      //TODO: DO IT IN BACKGROUND
       try {
         WorldOfGoo wog = WorldOfGoo.getTheInstance();
 

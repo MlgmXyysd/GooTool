@@ -4,6 +4,7 @@
 
 package org.meowcat.gootool;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.GridView;
@@ -24,13 +25,14 @@ public class GoomodInstaller implements View.OnClickListener {
   private TextView text;
   private GridView modsGrid;
 
-  public GoomodInstaller(MainActivity mainActivity, ProgressBar pb, TextView text, GridView modsGrid) {
+  GoomodInstaller(MainActivity mainActivity, ProgressBar pb, TextView text, GridView modsGrid) {
     this.mainActivity = mainActivity;
     this.pb = pb;
     this.text = text;
     this.modsGrid = modsGrid;
   }
 
+  @SuppressLint("StaticFieldLeak")
   @Override
   public void onClick(View v) {
     new AsyncTask<Void, ProgressData, Void>() {

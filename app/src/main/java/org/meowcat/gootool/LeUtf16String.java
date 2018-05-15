@@ -1,5 +1,7 @@
 package org.meowcat.gootool;
 
+import android.support.annotation.NonNull;
+
 import java.util.Arrays;
 /**
  * Little-Endian UTF16 encoded null terminated length prefixed CharSequence.
@@ -24,7 +26,7 @@ public class LeUtf16String implements CharSequence {
         this.rawData = c;
     }
 
-    public LeUtf16String(CharSequence seq) {
+    LeUtf16String(CharSequence seq) {
         char[] rawData = new char[seq.length() + 2];
 
         int l = seq.length();
@@ -72,6 +74,7 @@ public class LeUtf16String implements CharSequence {
         return new LeUtf16String(newSeq);
     }
 
+    @NonNull
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(this.length());

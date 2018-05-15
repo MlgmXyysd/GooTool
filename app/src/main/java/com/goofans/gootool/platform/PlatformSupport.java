@@ -6,46 +6,40 @@
 package com.goofans.gootool.platform;
 
 import com.goofans.gootool.util.Utilities;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Logger;
+import org.meowcat.gootool.WoGInitData;
 
 /**
- * TODO: merge it with AndroidSupport
  * On android there is only one supported platform so a lot of code has been removed.
  *
  * Platform support abstraction class.
- * <p/>
- * Also handles setting up an alternative preferences store if -preferences &lt;file&gt; is set on command line.
+ * Also handles setting up an alternative preferences store if -preferences <file> is set on command line.
  *
  * @author David Croft (davidc@goofans.com)
  * @version $Id: PlatformSupport.java 415 2010-09-09 19:05:48Z david $
  */
-public abstract class PlatformSupport
+public class PlatformSupport
 {
   private static final Logger log = Logger.getLogger(PlatformSupport.class.getName());
 
-  private static PlatformSupport support = new AndroidSupport();
-
-
-  protected PlatformSupport()
-  {
-  }
-
   public static String[] getProfileSearchPaths()
   {
-    return support.doGetProfileSearchPaths();
+    return doGetProfileSearchPaths();
   }
 
-  protected abstract String[] doGetProfileSearchPaths();
+  public static String[] doGetProfileSearchPaths() {
+    return new String[0];
+  }
 
   public static File getToolStorageDirectory() throws IOException
   {
-    File dir = support.doGetToolStorageDirectory();
+    File dir = doGetToolStorageDirectory();
     Utilities.mkdirsOrException(dir);
     return dir;
   }
-
-  protected abstract File doGetToolStorageDirectory() throws IOException;
+  public static File doGetToolStorageDirectory() throws IOException {
+    return WoGInitData.getContext().getExternalFilesDir(null);
+  }
 }
