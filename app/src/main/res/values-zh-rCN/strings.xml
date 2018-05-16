@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Gootool</string>
+    <string name="app_name">GooTool</string>
     <string name="app_label">World Of Goo Mod 管理器</string>
     <string name="action_about">关于</string>
-    <string name="btn_remove">Remove</string>
-    <string name="btn_delete">Delete selected</string>
-    <string name="add">Select a mod File to add</string>
-    <string name="managernotfound">Please install a File Manager.</string>
-    <string name="deleted">Deleted selected goomods. Don\'t forget to save changes.</string>
-    <string name="delete_select">Click on goomod\'s name to select</string>
-    <string name="cantopen">Couldn\'t open file.</string>
-    <string name="invaild">Invalid addin file.</string>
-    <string name="readerror">File read error.</string>
-    <string name="added">Addin already added.</string>
-    <string name="goomodadded">Successfully added addin. Don\'t forget to save changes.</string>
-    <string name="crash">Sorry,the application crash has stoped unexpectedly.</string>
-    <string name="generating">Generating modded APK (progress bar not implemented yet)</string>
-    <string name="signing">Signing modded APK</string>
+    <string name="action_danate">捐赠</string>
+    <string name="action_settings">设置</string>
+    <string name="btn_remove">删除</string>
+    <string name="btn_delete">删除已选</string>
+    <string name="add">选择欲添加的mod</string>
+    <string name="managernotfound">请先安装文件管理器</string>
+    <string name="deleted">已选mod已删除，不要忘了保存更改哦</string>
+    <string name="delete_select">点击mod名称来选择</string>
+    <string name="cantopen">无法打开文件</string>
+    <string name="invaild">所选文件不是有效的goomod文件</string>
+    <string name="readerror">文件读取错误</string>
+    <string name="added">mod已经在列表中，请勿重复添加</string>
+    <string name="goomodadded">添加成功，不要忘了保存更改哦</string>
+    <string name="crash">对不起，程序出现错误，即将退出</string>
+    <string name="generating">正在生成APK（进度条不会滚动）</string>
+    <string name="signing">正在对生成的APK进行签名</string>
 </resources>

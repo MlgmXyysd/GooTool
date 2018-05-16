@@ -39,7 +39,7 @@ import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
-  public static final String TAG = "Gootool";
+  public static final String TAG = "GooTool";
   private static final int FILE_SELECT_CODE = 0;
 
   public Button installApkBtn;
@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         try {
           startActivityForResult(
                   Intent.createChooser(intent, getString(R.string.add)),
-                  FILE_SELECT_CODE);//
+                  FILE_SELECT_CODE);
         } catch (ActivityNotFoundException ex) {
           Toast.makeText(MainActivity.this, R.string.managernotfound, Toast.LENGTH_SHORT).show();
         }
@@ -140,7 +140,6 @@ public class MainActivity extends AppCompatActivity {
         }
       }
     });
-    //TODO: Merge changeOrder Button & installModsBtn Button
     this.changeOrder = (Button) findViewById(R.id.changeOrderButton);
     this.changeOrder.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -173,6 +172,18 @@ public class MainActivity extends AppCompatActivity {
       //TODO:About activity
       //Intent aboutIntent = new Intent(MainActivity.this, AboutActivity.class);
       //startActivity(aboutIntent);
+      return true;
+    }
+    if (id == R.id.action_donate) {
+      //TODO:Donate activity
+      //Intent donateIntent = new Intent(MainActivity.this, DonateActivity.class);
+      //startActivity(donateIntent);
+      return true;
+    }
+    if (id == R.id.action_settings) {
+      //TODO:Settings activity
+      //Intent donateIntent = new Intent(MainActivity.this, DonateActivity.class);
+      //startActivity(donateIntent);
       return true;
     }
 

@@ -5,10 +5,10 @@
 
     <CheckBox
         android:id="@+id/mod_item_enabled"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:checked="true"
-        android:enabled="true"/>
+        android:enabled="true" />
 
     <TextView
         android:id="@+id/mod_item_title"

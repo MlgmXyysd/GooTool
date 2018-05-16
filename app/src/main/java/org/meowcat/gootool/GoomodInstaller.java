@@ -50,7 +50,7 @@ public class GoomodInstaller implements View.OnClickListener {
           throw new RuntimeException(e);
         }
 
-        cfg.setWatermark("Gootool for Android by MeowCat Studio. http://www.meowcat.org/");
+        cfg.setWatermark("GooTool for Android by MeowCat Studio. http://www.meowcat.org/");
 
         ModListDynamicGridViewAdapter a = (ModListDynamicGridViewAdapter) modsGrid.getAdapter();
 

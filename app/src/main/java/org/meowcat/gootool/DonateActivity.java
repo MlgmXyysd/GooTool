@@ -12,14 +12,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 /**
-* TODO: About Activity
-*/
-public class AboutActivity extends AppCompatActivity {
+ * TODO: Donate Activity
+ */
+public class DonateActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about);
+        setContentView(R.layout.activity_donate);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
