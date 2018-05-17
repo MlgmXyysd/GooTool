@@ -25,8 +25,8 @@
         android:minHeight="25dp"
         android:padding="10dp"
         android:singleLine="true"
-        android:text="install"
-        android:textSize="15sp"/>
+        android:text="@string/btn_install"
+        android:textSize="15sp" />
 
     <ProgressBar
         android:id="@+id/installProgress"
@@ -60,8 +60,8 @@
         android:minHeight="25dp"
         android:padding="10dp"
         android:singleLine="true"
-        android:text="Save"
-        android:textSize="15sp"/>
+        android:text="@string/btn_save"
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/textView"
@@ -102,49 +102,49 @@
         android:layout_alignParentRight="true">
 
         <Button
+            android:id="@+id/addBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add"
-            android:id="@+id/addBtn"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_column="0"
             android:layout_columnSpan="1"
             android:layout_columnWeight="1"
-            android:layout_row="0"
             android:layout_gravity="fill_horizontal"
+            android:layout_row="0"
             android:layout_rowSpan="1"
-            android:layout_rowWeight="1"/>
+            android:layout_rowWeight="1"
+            android:text="@string/btn_add" />
 
         <Button
+            android:id="@+id/rmBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/rmBtn"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_row="0"
             android:layout_column="1"
             android:layout_columnSpan="1"
             android:layout_columnWeight="1"
             android:layout_gravity="fill_horizontal"
+            android:layout_row="0"
             android:layout_rowSpan="1"
             android:layout_rowWeight="1"
-            android:text="Remove"/>
+            android:text="@string/btn_remove" />
 
         <Button
+            android:id="@+id/changeOrderButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Change order"
-            android:id="@+id/changeOrderButton"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_column="2"
             android:layout_columnSpan="1"
             android:layout_columnWeight="1"
+            android:layout_gravity="fill_horizontal"
             android:layout_row="0"
             android:layout_rowSpan="1"
             android:layout_rowWeight="1"
-            android:layout_gravity="fill_horizontal"/>
+            android:text="@string/btn_changeorder" />
     </GridLayout>
 
 </RelativeLayout>

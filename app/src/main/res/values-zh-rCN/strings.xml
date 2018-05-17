@@ -3,7 +3,7 @@
     <string name="app_name">GooTool</string>
     <string name="app_label">World Of Goo Mod 管理器</string>
     <string name="action_about">关于</string>
-    <string name="action_danate">捐赠</string>
+    <string name="action_donate">捐赠</string>
     <string name="action_settings">设置</string>
     <string name="btn_remove">删除</string>
     <string name="btn_delete">删除已选</string>
@@ -19,4 +19,9 @@
     <string name="crash">对不起，程序出现错误，即将退出</string>
     <string name="generating">正在生成APK（进度条不会滚动）</string>
     <string name="signing">正在对生成的APK进行签名</string>
+    <string name="btn_save">保存</string>
+    <string name="btn_install">安装</string>
+    <string name="btn_changeorder">更改顺序</string>
+    <string name="btn_done">完成</string>
+    <string name="btn_add">添加</string>
 </resources>

@@ -22,14 +22,18 @@
         </activity>
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings" />
+            android:label="@string/action_settings" />
         <activity
             android:name=".DonateActivity"
-            android:label="@string/title_activity_donate"
+            android:label="@string/action_donate"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AboutActivity"
-            android:label="@string/title_activity_about"
+            android:label="@string/action_about"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".NavigationActivity"
+            android:label="@string/title_activity_navigation"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
