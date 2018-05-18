@@ -17,16 +17,12 @@ import java.io.OutputStream;
 
 public class AxmlModUtil {
 
-  public static boolean modifyFiles() {
+  public static void modifyFiles() {
     File location = WorldOfGooAndroid.get().TEMP_MODDED_DIR;
-    if (!modifyAndroidManifest(location)) {
-      return false;
+    if (modifyAndroidManifest(location)) {
+      modifyResources(location);
     }
 
-    if (!modifyResources(location)) {
-      return false;
-    }
-    return true;
   }
 
   private static boolean modifyAndroidManifest(File location) {
@@ -34,7 +30,7 @@ public class AxmlModUtil {
 
     //Java - y u so verbose?
     InputStream in = null;
-    ByteArrayOutputStream baos = null;
+    ByteArrayOutputStream baos;
 
     try {
       in = new FileInputStream(androidManifest);
@@ -72,12 +68,12 @@ public class AxmlModUtil {
     return true;
   }
 
-  private static boolean modifyResources(File location) {
+  private static void modifyResources(File location) {
     File androidManifest = new File(location, "resources.arsc");
 
     //Java - y u so verbose?
     InputStream in = null;
-    ByteArrayOutputStream baos = null;
+    ByteArrayOutputStream baos;
 
     try {
       in = new FileInputStream(androidManifest);
@@ -85,14 +81,14 @@ public class AxmlModUtil {
       modifyResources(in, baos);
     } catch (IOException e) {
       e.printStackTrace();
-      return false;
+      return;
     } finally {
       if (in != null)
         try {
           in.close();
         } catch (IOException e) {
           e.printStackTrace();
-          return false;
+          return;
         }
     }
 
@@ -102,17 +98,14 @@ public class AxmlModUtil {
       fos.write(baos.toByteArray());
     } catch (IOException e) {
       e.printStackTrace();
-      return false;
     } finally {
       if (fos != null)
         try {
           fos.close();
         } catch (IOException e) {
           e.printStackTrace();
-          return false;
         }
     }
-    return true;
   }
 
   private static void modifyResources(InputStream in, OutputStream os) throws IOException {
@@ -153,6 +146,7 @@ public class AxmlModUtil {
     }
   }
 
+  @SuppressWarnings("ConstantConditions")
   private static void modifyAxml(InputStream in, OutputStream os) throws IOException {
     //this expects the original World of Goo Manifest.xml file. It probably won't work with any other file
     //
@@ -169,7 +163,7 @@ public class AxmlModUtil {
     textStartm8 = readLeUint(in);
     unknown9 = readLeUint(in);
 
-    if (anyEqual(null, unknown1, fileSize, unknown3, textEndm4, preTextIntsNum, unknown6, unknown7, textStartm8, unknown9)) {
+    if (anyEqual(unknown1, fileSize, unknown3, textEndm4, preTextIntsNum, unknown6, unknown7, textStartm8, unknown9)) {
       throw new IOException("Unexpected end of file");
     }
     Integer[] preTextInts = new Integer[preTextIntsNum];
@@ -177,7 +171,7 @@ public class AxmlModUtil {
     for (int i = 0; i < preTextInts.length; i++) {
       preTextInts[i] = readLeUint(in);
     }
-    if (anyEqual(null, (Object)preTextInts)) {
+    if (anyEqual((Object)preTextInts)) {
       throw new IOException("Unexpected end of file");
     }
 
@@ -263,6 +257,7 @@ public class AxmlModUtil {
     return bos.toByteArray();
   }
 
+  @SuppressWarnings("ConstantConditions")
   private static LeUtf16String readNextString(InputStream in) throws IOException {
     char c = readChar(in);
     char[] arr = new char[((c & 0xFF) << 8 | c >>> 8) + 2];
@@ -274,9 +269,9 @@ public class AxmlModUtil {
     return new LeUtf16String(arr);
   }
 
-  private static boolean anyEqual(Object o, Object... objs) {
+  private static boolean anyEqual(Object... objs) {
     for (Object obj : objs) {
-      if ((o == null && obj == null) || (o != null && o.equals(obj))) {
+      if (obj == null) {
         return true;
       }
     }
@@ -301,8 +296,7 @@ public class AxmlModUtil {
       return null;
     }
 
-    int ret = byte1 | byte2 << 8 | byte3 << 16 | byte4 << 24;
-    return ret;
+    return byte1 | byte2 << 8 | byte3 << 16 | byte4 << 24;
   }
 
   private static void writeLeUint(OutputStream out, int num) throws IOException {
@@ -325,8 +319,7 @@ public class AxmlModUtil {
     if (byte2 == -1) {
       return null;
     }
-    char ret = (char) (byte1 << 8 | byte2);
-    return ret;
+    return (char) (byte1 << 8 | byte2);
   }
 
 }

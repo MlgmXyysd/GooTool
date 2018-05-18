@@ -4,13 +4,13 @@
 
 package org.meowcat.gootool;
 
+import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
   public static final String TAG = "GooTool";
   private static final int FILE_SELECT_CODE = 0;
-
+  public Boolean ischangeorder = false;
   public Button installApkBtn;
   public Button installModsBtn;
   public Button changeOrder;
@@ -55,17 +55,6 @@ public class MainActivity extends AppCompatActivity {
 
   private TextView text;
 
-  private CountDownTimer timer = new CountDownTimer(5000, 10000) {
-    @Override
-    public void onTick(long millisUntilFinished) {}
-
-    @Override
-    public void onFinish() {
-      modsGrid.stopEditMode();
-      changeOrder.setEnabled(true);
-    }
-  };
-
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -78,17 +67,9 @@ public class MainActivity extends AppCompatActivity {
     this.modsGrid.setOnDragListener(new DynamicGridView.OnDragListener() {
       @Override
       public void onDragStarted(int position) {
-        timer.cancel();
       }
-
       @Override
       public void onDragPositionsChanged(int oldPosition, int newPosition) {
-      }
-    });
-    this.modsGrid.setOnDropListener(new DynamicGridView.OnDropListener() {
-      @Override
-      public void onActionDrop() {
-        timer.start();
       }
     });
 
@@ -144,9 +125,18 @@ public class MainActivity extends AppCompatActivity {
     this.changeOrder.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        modsGrid.startEditMode();
-        timer.start();
-        changeOrder.setEnabled(false);
+        if(ischangeorder){
+          ((Button)v).setText(R.string.btn_done);
+          modsGrid.startEditMode();
+          disableButtons();
+          v.setEnabled(true);
+          ischangeorder = true;
+        } else {
+          ((Button)v).setText(R.string.btn_changeorder);
+          modsGrid.stopEditMode();
+          enableButtons();
+          ischangeorder = false;
+        }
       }
     });
     new InitGootoolTask().execute();
@@ -190,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
     return super.onOptionsItemSelected(item);
   }
 
+  @SuppressLint("ShowToast")
   @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     switch (requestCode) {
@@ -197,7 +188,8 @@ public class MainActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK) {
           // Get the Uri of the selected file
           Uri uri = data.getData();
-          Log.d(TAG, "File Uri: " + uri.toString());
+            assert uri != null;
+            Log.d(TAG, "File Uri: " + uri.toString());
 
           File file = IOUtils.getFile(this, uri);
 
@@ -230,12 +222,13 @@ public class MainActivity extends AppCompatActivity {
     changeOrder.setEnabled(value);
   }
 
+  @SuppressLint("StaticFieldLeak")
   private class AddAddinAsyncTask extends AsyncTask<Void, Void, String>{
     private File file;
     private ModListDynamicGridViewAdapter adapter;
     private Context context;
 
-    public AddAddinAsyncTask(File file, ModListDynamicGridViewAdapter adapter, Context context) {
+    AddAddinAsyncTask(File file, ModListDynamicGridViewAdapter adapter, Context context) {
 
       this.file = file;
       this.adapter = adapter;
@@ -266,7 +259,7 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(context, result, Toast.LENGTH_LONG).show();
         return;
       }
-      Set<String> alreadyInstalled = new HashSet<String>();
+      Set<String> alreadyInstalled = new HashSet<>();
       for(int i = 0; i < adapter.getCount(); i++) {
         alreadyInstalled.add(((ModListDynamicGridViewAdapter.GoomodEntry) adapter.getItem(i)).getId());
       }
@@ -279,6 +272,7 @@ public class MainActivity extends AppCompatActivity {
     }
   }
 
+  @SuppressLint("StaticFieldLeak")
   private class InitGootoolTask extends AsyncTask<Void, ProgressData, Void> {
 
     @Override

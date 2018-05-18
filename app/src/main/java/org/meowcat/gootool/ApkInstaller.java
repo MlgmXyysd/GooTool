@@ -5,7 +5,6 @@
 package org.meowcat.gootool;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -33,7 +32,6 @@ public class ApkInstaller implements View.OnClickListener {
   private final MainActivity a;
   private TextView text;
   @SuppressLint("StaticFieldLeak")
-  private static android.content.Context Context;
 
   ApkInstaller(MainActivity a, ProgressBar progress, TextView text) {
     this.progress = progress;
@@ -56,7 +54,6 @@ public class ApkInstaller implements View.OnClickListener {
     private TextView text;
     @SuppressLint("StaticFieldLeak")
     private final MainActivity a;
-    private PackageManager pkgMgr;
 
     private int taskNum = -1;
     private final int maxTask = 2;
@@ -64,8 +61,6 @@ public class ApkInstaller implements View.OnClickListener {
     InstallModsTask(ProgressBar progress, MainActivity act, TextView text) {
       this.progress = progress;
       this.text = text;
-
-      this.pkgMgr = act.getPackageManager();
       this.a = act;
     }
 

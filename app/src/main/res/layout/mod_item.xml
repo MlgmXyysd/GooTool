@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="fill_parent"
-              android:layout_height="25dp">
+    android:layout_width="fill_parent"
+    android:layout_height="30dp">
 
     <CheckBox
         android:id="@+id/mod_item_enabled"
@@ -14,10 +14,10 @@
         android:id="@+id/mod_item_title"
         android:layout_width="fill_parent"
         android:layout_height="20dp"
+        android:layout_gravity="center_vertical"
+        android:clickable="false"
         android:singleLine="false"
         android:text="Mod Name"
-        android:textSize="16dp"
-        android:clickable="false"
-        android:layout_gravity="center_vertical"/>
+        android:textSize="16dp" />
 
 </LinearLayout>

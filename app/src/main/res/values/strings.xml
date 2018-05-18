@@ -101,4 +101,5 @@
     <string name="btn_install">Install</string>
     <string name="btn_changeorder">Change Order</string>
     <string name="btn_done">Done</string>
+    <string name="app_version">Version:</string>
 </resources>

@@ -17,6 +17,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -31,17 +32,19 @@ import android.widget.Toast;
  * UncaughtException处理类,当程序发生Uncaught异常的时候,有该类来接管程序,并记录发送错误报告.
  */
 public class CrashHandler implements UncaughtExceptionHandler {
-    public static final String TAG = "CrashHandler";
+    private static final String TAG = MainActivity.TAG;
     //系统默认的UncaughtException处理类
     private Thread.UncaughtExceptionHandler mDefaultHandler;
     //CrashHandler实例
+    @SuppressLint("StaticFieldLeak")
     private static CrashHandler INSTANCE = new CrashHandler();
     //程序的Context对象
     private Context Context;
     //用来存储设备信息和异常信息
-    private Map<String, String> infos = new HashMap<String, String>();
+    private Map<String, String> infos = new HashMap<>();
 
     //用于格式化日期,作为日志文件名的一部分
+    @SuppressLint("SimpleDateFormat")
     private DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
 
     /** 保证只有一个CrashHandler实例 */
@@ -116,7 +119,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
      * 收集设备参数信息
      * @param ctx
      */
-    public void collectDeviceInfo(Context ctx) {
+    private void collectDeviceInfo(Context ctx) {
         try {
             PackageManager pm = ctx.getPackageManager();
             PackageInfo pi = pm.getPackageInfo(ctx.getPackageName(), PackageManager.GET_ACTIVITIES);
@@ -147,20 +150,9 @@ public class CrashHandler implements UncaughtExceptionHandler {
      * @param strFolder
      * @return
      */
-    boolean isFolderExists(String strFolder)
-    {
+    private boolean isFolderExists(String strFolder) {
         File file = new File(strFolder);
-
-        if (!file.exists())
-        {
-            if (file.mkdir())
-            {
-                return true;
-            }
-            else
-                return false;
-        }
-        return true;
+        return file.exists() || file.mkdir();
     }
     /**
      * 保存错误信息到文件中
@@ -168,13 +160,13 @@ public class CrashHandler implements UncaughtExceptionHandler {
      * @param ex
      * @return  返回文件名称,便于将文件传送到服务器
      */
-    private String saveCrashInfo2File(Throwable ex) {
+    private void saveCrashInfo2File(Throwable ex) {
 
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for (Map.Entry<String, String> entry : infos.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
-            sb.append(key + "=" + value + "\n");
+            sb.append(key).append("=").append(value).append("\n");
         }
 
         Writer writer = new StringWriter();
@@ -192,20 +184,14 @@ public class CrashHandler implements UncaughtExceptionHandler {
             long timestamp = System.currentTimeMillis();
             String time = formatter.format(new Date());
             String fileName = "crash-" + time + "-" + timestamp + ".log";
-            String crashpath;
-            if (Environment.MEDIA_MOUNTED.equals(Environment.MEDIA_MOUNTED) || !Environment.isExternalStorageRemovable()) {
-                crashpath = Context.getExternalFilesDir("crash").getPath() + "/";
-            } else {
-                crashpath = Context.getFilesDir().getPath()+ "/crash/" ;
-            }
-            isFolderExists(crashpath);
+            String crashpath = Context.getExternalFilesDir("crash").getPath() + "/";
+            if(isFolderExists(crashpath)) {
                 FileOutputStream fos = new FileOutputStream(crashpath + fileName);
                 fos.write(sb.toString().getBytes());
                 fos.close();
-            return fileName;
+            }
         } catch (Exception e) {
             Log.e(TAG, "An error occured while writing crash file...", e);
         }
-        return null;
     }
 }
