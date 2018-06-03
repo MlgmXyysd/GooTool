@@ -7,5 +7,148 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity"
     tools:showIn="@layout/app_bar_navigation">
+    <RelativeLayout
+        style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin">
 
+        <Button
+            android:id="@+id/installApkBtn"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/installModsBtn"
+            android:elevation="1dp"
+            android:enabled="false"
+            android:maxHeight="25dp"
+            android:minHeight="25dp"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:text="@string/btn_install"
+            android:textSize="15sp" />
+
+        <ProgressBar
+            android:id="@+id/installProgress"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/installApkBtn"
+            android:elevation="0dp"
+            android:indeterminate="false"
+            android:max="100"
+            android:maxHeight="10dp"
+            android:minHeight="10dp"
+            android:padding="0dp"
+            android:progress="0"
+            android:visibility="invisible"/>
+
+        <Button
+            android:id="@+id/installModsBtn"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:enabled="false"
+            android:maxHeight="25dp"
+            android:minHeight="25dp"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:text="@string/btn_save"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/installProgress"
+            android:minHeight="15dp"
+            android:textSize="15sp"
+            android:typeface="normal"/>
+
+        <FrameLayout
+            android:id="@+id/modsGridFrame"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/textView"
+            android:layout_above="@+id/linearLayout"
+            android:layout_alignParentEnd="true">
+
+            <org.askerov.dynamicgrid.DynamicGridView
+                android:id="@+id/modsGrid"
+                android:layout_width="1000dp"
+                android:layout_height="wrap_content"
+                android:numColumns="1"
+                android:columnWidth="1000dp"/>
+        </FrameLayout>
+
+        <GridLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/linearLayout"
+            android:columnCount="3"
+            android:rowCount="1"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true">
+
+            <Button
+                android:id="@+id/addBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="0"
+                android:layout_columnSpan="1"
+                android:layout_columnWeight="1"
+                android:layout_gravity="fill_horizontal"
+                android:layout_row="0"
+                android:layout_rowSpan="1"
+                android:layout_rowWeight="1"
+                android:text="@string/btn_add" />
+
+            <Button
+                android:id="@+id/rmBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_columnSpan="1"
+                android:layout_columnWeight="1"
+                android:layout_gravity="fill_horizontal"
+                android:layout_row="0"
+                android:layout_rowSpan="1"
+                android:layout_rowWeight="1"
+                android:text="@string/btn_remove" />
+
+            <Button
+                android:id="@+id/changeOrderButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:layout_columnSpan="1"
+                android:layout_columnWeight="1"
+                android:layout_gravity="fill_horizontal"
+                android:layout_row="0"
+                android:layout_rowSpan="1"
+                android:layout_rowWeight="1"
+                android:text="@string/btn_changeorder" />
+        </GridLayout>
+
+    </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

@@ -8,6 +8,7 @@
     <string name="btn_remove">删除</string>
     <string name="btn_delete">删除已选</string>
     <string name="add">选择欲添加的mod</string>
+    <string name="exit">再按一次返回键退出</string>
     <string name="managernotfound">请先安装文件管理器</string>
     <string name="deleted">已选mod已删除，不要忘了保存更改哦</string>
     <string name="delete_select">点击mod名称来选择</string>
@@ -24,5 +25,5 @@
     <string name="btn_changeorder">更改顺序</string>
     <string name="btn_done">完成</string>
     <string name="btn_add">添加</string>
-    <string name="app_version">版本：</string>
+    <string name="app_version_desc">版本：</string>
 </resources>

@@ -10,6 +10,7 @@
     <string name="btn_add">Add</string>
     <string name="add">Select a mod File to add</string>
     <string name="managernotfound">Please install a File Manager.</string>
+    <string name="exit">Press back again to exit.</string>
     <string name="deleted">Deleted selected goomods. Don\'t forget to save changes.</string>
     <string name="delete_select">Click on goomod\'s name to select</string>
     <string name="cantopen">Couldn\'t open file.</string>
@@ -101,5 +102,5 @@
     <string name="btn_install">Install</string>
     <string name="btn_changeorder">Change Order</string>
     <string name="btn_done">Done</string>
-    <string name="app_version">Version:</string>
+    <string name="app_version_desc">Version:</string>
 </resources>
