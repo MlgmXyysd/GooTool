@@ -3,7 +3,7 @@ android {
     compileSdkVersion 23
     defaultConfig {
         applicationId "org.meowcat.gootool"
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 23
         versionCode 6
         versionName "1.0.5"
