@@ -59,7 +59,7 @@ public class TerseFormatter extends Formatter {
     /**
      * Format the given log record and return the formatted string.
      *
-     * @param  record the log record to be formatted.
+     * @param record the log record to be formatted.
      * @return a formatted log record
      */
     public synchronized String format(final LogRecord record) {
@@ -97,7 +97,7 @@ public class TerseFormatter extends Formatter {
      * Returns a string of the specified length filled with white spaces.
      * This method tries to return a pre-allocated string if possible.
      *
-     * @param  length The string length. Negative values are clamped to 0.
+     * @param length The string length. Negative values are clamped to 0.
      * @return A string of length <code>length</code> filled with white spaces.
      */
     private static String spaces(int length) {

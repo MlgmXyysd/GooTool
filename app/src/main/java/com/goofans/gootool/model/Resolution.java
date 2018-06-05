@@ -17,119 +17,107 @@ import java.util.logging.Logger;
  * @author David Croft (davidc@goofans.com)
  * @version $Id: Resolution.java 389 2010-05-02 18:03:02Z david $
  */
-public class Resolution implements Comparable
-{
-  private static final Logger log = Logger.getLogger(Resolution.class.getName());
+public class Resolution implements Comparable {
+    private static final Logger log = Logger.getLogger(Resolution.class.getName());
 
-  private final int width;
-  private final int height;
+    private final int width;
+    private final int height;
 
-  private Resolution(int width, int height)
-  {
-    this.width = width;
-    this.height = height;
-  }
-
-  public int getWidth()
-  {
-    return width;
-  }
-
-  public int getHeight()
-  {
-    return height;
-  }
-
-  public boolean isWidescreen()
-  {
-    return (height * 4) / 3 != width;
-  }
-
-  public String getAspectRatio()
-  {
-    int gcd = GCD(width, height);
-
-    int widthFactor = width / gcd;
-    int heightFactor = height / gcd;
-
-    if (widthFactor == 5 && heightFactor == 3) {
-      // Show 15:9 instead of 5:3
-      gcd /= 3;
-    }
-    else if (widthFactor == 8 && heightFactor == 5) {
-      // Show 16:10 instead of 8:5
-      gcd /= 2;
+    private Resolution(int width, int height) {
+        this.width = width;
+        this.height = height;
     }
 
-    return (width / gcd) + ":" + (height / gcd);
-  }
+    public int getWidth() {
+        return width;
+    }
 
-  private static int GCD(int a, int b)
-  {
-    if (b == 0) return a;
-    return GCD(b, a % b);
-  }
+    public int getHeight() {
+        return height;
+    }
 
-  @Override
-  public String toString()
-  {
-    StringBuilder sb = new StringBuilder();
-    sb.append(width);
-    sb.append("x");
-    sb.append(height);
+    public boolean isWidescreen() {
+        return (height * 4) / 3 != width;
+    }
 
-    // figure out aspect ratio
+    public String getAspectRatio() {
+        int gcd = GCD(width, height);
 
-    sb.append(" (").append(getAspectRatio()).append(")");
-    return sb.toString();
-  }
+        int widthFactor = width / gcd;
+        int heightFactor = height / gcd;
 
-  @Override
-  public boolean equals(Object o)
-  {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+        if (widthFactor == 5 && heightFactor == 3) {
+            // Show 15:9 instead of 5:3
+            gcd /= 3;
+        } else if (widthFactor == 8 && heightFactor == 5) {
+            // Show 16:10 instead of 8:5
+            gcd /= 2;
+        }
 
-    Resolution that = (Resolution) o;
+        return (width / gcd) + ":" + (height / gcd);
+    }
 
-    return height == that.height && width == that.width;
-  }
+    private static int GCD(int a, int b) {
+        if (b == 0) return a;
+        return GCD(b, a % b);
+    }
 
-  @Override
-  public int hashCode()
-  {
-    int result;
-    result = width;
-    result = 31 * result + height;
-    return result;
-  }
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(width);
+        sb.append("x");
+        sb.append(height);
 
-  public int compareTo(Object o)
-  {
-    Resolution that = (Resolution) o;
-    if (this.width < that.width)
-      return -1;
-    else if (this.width > that.width)
-      return 1;
-    else if (this.height < that.height)
-      return -1;
-    else if (this.height > that.height)
-      return 1;
-    else
-      return 0;
-  }
+        // figure out aspect ratio
+
+        sb.append(" (").append(getAspectRatio()).append(")");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Resolution that = (Resolution) o;
+
+        return height == that.height && width == that.width;
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        result = width;
+        result = 31 * result + height;
+        return result;
+    }
+
+    public int compareTo(Object o) {
+        Resolution that = (Resolution) o;
+        if (this.width < that.width)
+            return -1;
+        else if (this.width > that.width)
+            return 1;
+        else if (this.height < that.height)
+            return -1;
+        else if (this.height > that.height)
+            return 1;
+        else
+            return 0;
+    }
 
 
-  private static final Set<Resolution> RESOLUTIONS;
-  private static final Set<Integer> REFRESH_RATES;
-  public static final Resolution DEFAULT_RESOLUTION;
+    private static final Set<Resolution> RESOLUTIONS;
+    private static final Set<Integer> REFRESH_RATES;
+    public static final Resolution DEFAULT_RESOLUTION;
 
-  static {
-    Set<Resolution> resolutions = new TreeSet<Resolution>();
-    Set<Integer> refreshRates = new TreeSet<Integer>();
+    static {
+        Set<Resolution> resolutions = new TreeSet<Resolution>();
+        Set<Integer> refreshRates = new TreeSet<Integer>();
 
-    // Make sure there's always a 800x600 resolution!
-    resolutions.add(DEFAULT_RESOLUTION = new Resolution(800, 600));
+        // Make sure there's always a 800x600 resolution!
+        resolutions.add(DEFAULT_RESOLUTION = new Resolution(800, 600));
 /*
     for (GraphicsDevice screenDevice : GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()) {
 
@@ -141,37 +129,33 @@ public class Resolution implements Comparable
       }
     }*/
 
-    RESOLUTIONS = Collections.unmodifiableSet(resolutions);
-    REFRESH_RATES = Collections.unmodifiableSet(refreshRates);
+        RESOLUTIONS = Collections.unmodifiableSet(resolutions);
+        REFRESH_RATES = Collections.unmodifiableSet(refreshRates);
 
-    log.finer("System resolutions " + RESOLUTIONS);
-    log.finer("Refresh rates " + REFRESH_RATES);
-  }
-
-  public static Set<Resolution> getSystemResolutions()
-  {
-    return RESOLUTIONS;
-  }
-
-  public static Resolution getResolutionByDimensions(int w, int h)
-  {
-    for (Resolution resolution : RESOLUTIONS) {
-      if (resolution.getWidth() == w && resolution.getHeight() == h) {
-        return resolution;
-      }
+        log.finer("System resolutions " + RESOLUTIONS);
+        log.finer("Refresh rates " + REFRESH_RATES);
     }
-    return null;
-  }
 
-  public static Set<Integer> getSystemRefreshRates()
-  {
-    return REFRESH_RATES;
-  }
+    public static Set<Resolution> getSystemResolutions() {
+        return RESOLUTIONS;
+    }
 
-  @SuppressWarnings({"UseOfSystemOutOrSystemErr", "HardCodedStringLiteral"})
-  public static void main(String[] args)
-  {
-    System.out.println("getSystemResolutions() = " + getSystemResolutions());
-    System.out.println("getSystemRefreshRates() = " + getSystemRefreshRates());
-  }
+    public static Resolution getResolutionByDimensions(int w, int h) {
+        for (Resolution resolution : RESOLUTIONS) {
+            if (resolution.getWidth() == w && resolution.getHeight() == h) {
+                return resolution;
+            }
+        }
+        return null;
+    }
+
+    public static Set<Integer> getSystemRefreshRates() {
+        return REFRESH_RATES;
+    }
+
+    @SuppressWarnings({"UseOfSystemOutOrSystemErr", "HardCodedStringLiteral"})
+    public static void main(String[] args) {
+        System.out.println("getSystemResolutions() = " + getSystemResolutions());
+        System.out.println("getSystemRefreshRates() = " + getSystemRefreshRates());
+    }
 }

@@ -15,20 +15,17 @@ import java.util.logging.Level;
  * @version $Id: DebugUtil.java 396 2010-06-11 20:33:38Z david $
  */
 @SuppressWarnings({"HardCodedStringLiteral"})
-public class DebugUtil
-{
-  private DebugUtil()
-  {
-  }
+public class DebugUtil {
+    private DebugUtil() {
+    }
 
-  /**
-   * Sets the debugging level of all project classes to the highest.
-   */
-  public static void setAllLogging()
-  {
+    /**
+     * Sets the debugging level of all project classes to the highest.
+     */
+    public static void setAllLogging() {
 //    Logger.getLogger("").setLevel(Level.ALL);
-    Logger.getLogger("com.goofans").setLevel(Level.ALL);
-    Logger.getLogger("net.infotrek").setLevel(Level.ALL);
-    Logger.getLogger("").getHandlers()[0].setLevel(Level.ALL);
-  }
+        Logger.getLogger("com.goofans").setLevel(Level.ALL);
+        Logger.getLogger("net.infotrek").setLevel(Level.ALL);
+        Logger.getLogger("").getHandlers()[0].setLevel(Level.ALL);
+    }
 }

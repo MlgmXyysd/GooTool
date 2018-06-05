@@ -7,6 +7,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity"
     tools:showIn="@layout/app_bar_navigation">
+
     <RelativeLayout
         style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="match_parent"
@@ -53,7 +54,7 @@
             android:minHeight="10dp"
             android:padding="0dp"
             android:progress="0"
-            android:visibility="invisible"/>
+            android:visibility="invisible" />
 
         <Button
             android:id="@+id/installModsBtn"
@@ -81,7 +82,7 @@
             android:layout_below="@+id/installProgress"
             android:minHeight="15dp"
             android:textSize="15sp"
-            android:typeface="normal"/>
+            android:typeface="normal" />
 
         <FrameLayout
             android:id="@+id/modsGridFrame"
@@ -97,7 +98,7 @@
                 android:layout_width="1000dp"
                 android:layout_height="wrap_content"
                 android:numColumns="1"
-                android:columnWidth="1000dp"/>
+                android:columnWidth="1000dp" />
         </FrameLayout>
 
         <GridLayout
@@ -117,6 +118,7 @@
                 android:layout_column="0"
                 android:layout_columnSpan="1"
                 android:layout_columnWeight="1"
+                android:enabled="false"
                 android:layout_gravity="fill_horizontal"
                 android:layout_row="0"
                 android:layout_rowSpan="1"
@@ -130,6 +132,7 @@
                 android:layout_column="1"
                 android:layout_columnSpan="1"
                 android:layout_columnWeight="1"
+                android:enabled="false"
                 android:layout_gravity="fill_horizontal"
                 android:layout_row="0"
                 android:layout_rowSpan="1"
@@ -143,6 +146,7 @@
                 android:layout_column="2"
                 android:layout_columnSpan="1"
                 android:layout_columnWeight="1"
+                android:enabled="false"
                 android:layout_gravity="fill_horizontal"
                 android:layout_row="0"
                 android:layout_rowSpan="1"

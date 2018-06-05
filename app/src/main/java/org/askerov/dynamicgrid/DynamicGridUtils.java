@@ -26,8 +26,8 @@ public class DynamicGridUtils {
     /**
      * Swap item in <code>list</code> at position <code>firstIndex</code> with item at position <code>secondIndex</code>
      *
-     * @param list The list in which to swap the items.
-     * @param firstIndex The position of the first item in the list.
+     * @param list        The list in which to swap the items.
+     * @param firstIndex  The position of the first item in the list.
      * @param secondIndex The position of the second item in the list.
      */
     public static void swap(List list, int firstIndex, int secondIndex) {

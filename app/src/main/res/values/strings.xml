@@ -21,6 +21,11 @@
     <string name="crash">Sorry,the application crash has stoped unexpectedly.</string>
     <string name="generating">Generating modded APK (progress bar not implemented yet)</string>
     <string name="signing">Signing modded APK</string>
+    <string name="grantpermissions_1">GooTool need your permission granted to use the Storage, otherwise will not be able to continue to use.</string>
+    <string name="grantpermissions_2">To continue to use GooTool you must permissions granted to use the Storage, please click on the [Grant] and give corresponding privileges in a pop-up window.</string>
+    <string name="grantpermissions_3">GooTool need you granted permission to continue to use the Storage, please go to [Settings - Apps - World of Goo Mod Manager - Permissions] to open the corresponding permissions.</string>
+    <string name="grantpermissions_btn_1">Cancel</string>
+    <string name="grantpermissions_btn_2">Continue</string>
 
     <!-- Strings related to Settings -->
 

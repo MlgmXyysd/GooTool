@@ -6,7 +6,7 @@ package org.meowcat.gootool;
 
 public class DuplicateAddinException extends RuntimeException {
 
-  public DuplicateAddinException(String message) {
-    super(message);
-  }
+    public DuplicateAddinException(String message) {
+        super(message);
+    }
 }

@@ -12,25 +12,21 @@ import java.util.Map;
  * @author David Croft (davidc@goofans.com)
  * @version $Id: KeyFrameTransform.java 389 2010-05-02 18:03:02Z david $
  */
-public class KeyFrameTransform extends KeyFrame
-{
-  private final TransformType transformType;
+public class KeyFrameTransform extends KeyFrame {
+    private final TransformType transformType;
 
-  public KeyFrameTransform(byte[] contents, int offset, int stringTableOffset, TransformType transformType)
-  {
-    super(contents, offset, stringTableOffset);
-    this.transformType = transformType;
-  }
+    public KeyFrameTransform(byte[] contents, int offset, int stringTableOffset, TransformType transformType) {
+        super(contents, offset, stringTableOffset);
+        this.transformType = transformType;
+    }
 
-  @Override
-  protected void setFrameXMLAttributes(Map<String, String> attributes)
-  {
-    if (transformType == TransformType.ROTATE) {
-      attributes.put("angle", String.valueOf(angle));
+    @Override
+    protected void setFrameXMLAttributes(Map<String, String> attributes) {
+        if (transformType == TransformType.ROTATE) {
+            attributes.put("angle", String.valueOf(angle));
+        } else {
+            attributes.put("x", String.valueOf(x));
+            attributes.put("y", String.valueOf(y));
+        }
     }
-    else {
-      attributes.put("x", String.valueOf(x));
-      attributes.put("y", String.valueOf(y));
-    }
-  }
 }

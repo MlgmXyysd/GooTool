@@ -630,7 +630,7 @@ public class DynamicGridView extends GridView {
         if (isPostHoneycomb() && mWobbleInEditMode) {
             if (mIsEditMode) {
                 restartWobble();
-            } else{
+            } else {
                 stopWobble(true);
             }
         }

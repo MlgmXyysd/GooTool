@@ -18,40 +18,39 @@ import java.util.List;
  * @author David Croft (davidc@goofans.com)
  * @version $Id: AddinReader.java 389 2010-05-02 18:03:02Z david $
  */
-public interface AddinReader
-{
-  /**
-   * Gets an InputStream for the requested file.
-   *
-   * @param fileName the file name to read, path separated by "/".
-   * @return an InputStream for this file.
-   * @throws FileNotFoundException if the requested file does not exist.
-   * @throws IOException           if the file could not be read for another reason.
-   */
-  InputStream getInputStream(String fileName) throws IOException;
+public interface AddinReader {
+    /**
+     * Gets an InputStream for the requested file.
+     *
+     * @param fileName the file name to read, path separated by "/".
+     * @return an InputStream for this file.
+     * @throws FileNotFoundException if the requested file does not exist.
+     * @throws IOException           if the file could not be read for another reason.
+     */
+    InputStream getInputStream(String fileName) throws IOException;
 
-  /**
-   * Tests whether the specified file exists in the addin.
-   *
-   * @param fileName The filename to check.
-   * @return true if the file exists.
-   */
-  boolean fileExists(String fileName);
+    /**
+     * Tests whether the specified file exists in the addin.
+     *
+     * @param fileName The filename to check.
+     * @return true if the file exists.
+     */
+    boolean fileExists(String fileName);
 
-  /**
-   * Gives an iterator for all the files that are descendants of the given directory name (including files in subdirectories).
-   * Skips all files and directories on the skip list.
-   *
-   * @param directory The directory to search under, including trailing "/".
-   * @param skip      A list of file/directory names to skip
-   * @return An iterator of valid files.
-   */
-  Iterator<String> getEntriesInDirectory(String directory, List<String> skip);
+    /**
+     * Gives an iterator for all the files that are descendants of the given directory name (including files in subdirectories).
+     * Skips all files and directories on the skip list.
+     *
+     * @param directory The directory to search under, including trailing "/".
+     * @param skip      A list of file/directory names to skip
+     * @return An iterator of valid files.
+     */
+    Iterator<String> getEntriesInDirectory(String directory, List<String> skip);
 
-  /**
-   * Closes the addin once work is complete.
-   *
-   * @throws IOException if the addin could not be closed successfully.
-   */
-  void close() throws IOException;
+    /**
+     * Closes the addin once work is complete.
+     *
+     * @throws IOException if the addin could not be closed successfully.
+     */
+    void close() throws IOException;
 }

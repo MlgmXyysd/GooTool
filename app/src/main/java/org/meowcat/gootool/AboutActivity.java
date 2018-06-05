@@ -12,8 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 /**
-* TODO: About Activity
-*/
+ * TODO: About Activity
+ */
 public class AboutActivity extends AppCompatActivity {
 
     @Override

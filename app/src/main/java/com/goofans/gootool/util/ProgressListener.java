@@ -11,18 +11,19 @@ package com.goofans.gootool.util;
  * @author David Croft (davidc@goofans.com)
  * @version $Id: ProgressListener.java 396 2010-06-11 20:33:38Z david $
  */
-public interface ProgressListener
-{
-  /**
-   * Notification that a step has begun.
-   * @param taskDescription User-displayed description of what's happening.
-   * @param progressAvailable True if progressStep will be called for this task, false if the progress of this step can't be provided.
-   */
-  void beginStep(String taskDescription, boolean progressAvailable);
+public interface ProgressListener {
+    /**
+     * Notification that a step has begun.
+     *
+     * @param taskDescription   User-displayed description of what's happening.
+     * @param progressAvailable True if progressStep will be called for this task, false if the progress of this step can't be provided.
+     */
+    void beginStep(String taskDescription, boolean progressAvailable);
 
-  /**
-   * Indicates the progress of the current step.
-   * @param percent The estimated percent completion of this step.
-   */
-  void progressStep(float percent);
+    /**
+     * Indicates the progress of the current step.
+     *
+     * @param percent The estimated percent completion of this step.
+     */
+    void progressStep(float percent);
 }

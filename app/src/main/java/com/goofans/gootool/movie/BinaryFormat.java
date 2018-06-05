@@ -9,38 +9,33 @@ package com.goofans.gootool.movie;
  * @author David Croft (davidc@goofans.com)
  * @version $Id: BinaryFormat.java 389 2010-05-02 18:03:02Z david $
  */
-public class BinaryFormat
-{
-  private BinaryFormat()
-  {
-  }
-
-  static float getFloat(byte[] arr, int offset)
-  {
-    int accum = 0;
-    for (int shiftBy = 0; shiftBy < 32; shiftBy += 8, offset++) {
-      accum |= ((long) (arr[offset] & 0xff)) << shiftBy;
+public class BinaryFormat {
+    private BinaryFormat() {
     }
-    return Float.intBitsToFloat(accum);
-  }
 
-  static int getInt(byte[] arr, int offset)
-  {
-
-    int accum = 0;
-    for (int shiftBy = 0; shiftBy < 32; shiftBy += 8, offset++) {
-      accum |= ((long) (arr[offset] & 0xff)) << shiftBy;
+    static float getFloat(byte[] arr, int offset) {
+        int accum = 0;
+        for (int shiftBy = 0; shiftBy < 32; shiftBy += 8, offset++) {
+            accum |= ((long) (arr[offset] & 0xff)) << shiftBy;
+        }
+        return Float.intBitsToFloat(accum);
     }
-    return accum;
-  }
 
-  static String getString(byte[] contents, int i)
-  {
-    StringBuilder sb = new StringBuilder();
-    while (contents[i] != 0) {
-      sb.append((char) contents[i]);
-      ++i;
+    static int getInt(byte[] arr, int offset) {
+
+        int accum = 0;
+        for (int shiftBy = 0; shiftBy < 32; shiftBy += 8, offset++) {
+            accum |= ((long) (arr[offset] & 0xff)) << shiftBy;
+        }
+        return accum;
     }
-    return sb.toString();
-  }
+
+    static String getString(byte[] contents, int i) {
+        StringBuilder sb = new StringBuilder();
+        while (contents[i] != 0) {
+            sb.append((char) contents[i]);
+            ++i;
+        }
+        return sb.toString();
+    }
 }

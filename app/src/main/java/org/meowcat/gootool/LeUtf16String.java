@@ -7,6 +7,7 @@ package org.meowcat.gootool;
 import android.support.annotation.NonNull;
 
 import java.util.Arrays;
+
 /**
  * Little-Endian UTF16 encoded null terminated length prefixed CharSequence.
  * This format us used internally in Android binary XML format.
@@ -19,7 +20,7 @@ public class LeUtf16String implements CharSequence {
         if (rawData.length < 2) {
             throw new IllegalArgumentException("Not enough data");
         }
-        if(rawData[rawData.length - 1] != 0) {
+        if (rawData[rawData.length - 1] != 0) {
             throw new IllegalArgumentException("Thsi sequence is not sull terminated");
         }
 

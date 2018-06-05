@@ -14,60 +14,50 @@ import java.util.Map;
  * @author David Croft (davidc@goofans.com)
  * @version $Id: AddinLevel.java 389 2010-05-02 18:03:02Z david $
  */
-public class AddinLevel
-{
-  private final String dir;
-  private final Map<String, String> names;
-  private final Map<String, String> subtitles;
-  private final String ocd;
-  private String cutscene;
-  private boolean skipEolSequence = false;
+public class AddinLevel {
+    private final String dir;
+    private final Map<String, String> names;
+    private final Map<String, String> subtitles;
+    private final String ocd;
+    private String cutscene;
+    private boolean skipEolSequence = false;
 
-  public AddinLevel(String dir, Map<String, String> names, Map<String, String> subtitles, String ocd)
-  {
-    this.dir = dir;
-    this.names = names;
-    this.subtitles = subtitles;
-    this.ocd = ocd;
-  }
+    public AddinLevel(String dir, Map<String, String> names, Map<String, String> subtitles, String ocd) {
+        this.dir = dir;
+        this.names = names;
+        this.subtitles = subtitles;
+        this.ocd = ocd;
+    }
 
-  public String getDir()
-  {
-    return dir;
-  }
+    public String getDir() {
+        return dir;
+    }
 
-  public Map<String, String> getNames()
-  {
-    return names;
-  }
+    public Map<String, String> getNames() {
+        return names;
+    }
 
-  public Map<String, String> getSubtitles()
-  {
-    return subtitles;
-  }
+    public Map<String, String> getSubtitles() {
+        return subtitles;
+    }
 
-  public String getOcd()
-  {
-    return ocd;
-  }
+    public String getOcd() {
+        return ocd;
+    }
 
-  void setCutscene(String cutscene)
-  {
-    this.cutscene = cutscene;
-  }
+    void setCutscene(String cutscene) {
+        this.cutscene = cutscene;
+    }
 
-  public String getCutscene()
-  {
-    return cutscene;
-  }
+    public String getCutscene() {
+        return cutscene;
+    }
 
-  void setSkipEolSequence(boolean skipEolSequence)
-  {
-    this.skipEolSequence = skipEolSequence;
-  }
+    void setSkipEolSequence(boolean skipEolSequence) {
+        this.skipEolSequence = skipEolSequence;
+    }
 
-  public boolean isSkipEolSequence()
-  {
-    return skipEolSequence;
-  }
+    public boolean isSkipEolSequence() {
+        return skipEolSequence;
+    }
 }

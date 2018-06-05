@@ -26,4 +26,9 @@
     <string name="btn_done">完成</string>
     <string name="btn_add">添加</string>
     <string name="app_version_desc">版本：</string>
+    <string name="grantpermissions_1">GooTool 需要你授予存储空间权限，否则将无法继续使用。</string>
+    <string name="grantpermissions_2">要继续使用 GooTool 你必须授予存储空间权限，请点击【授权】并在弹出的窗口中授予相应权限。</string>
+    <string name="grantpermissions_3">GooTool 需要你授予存储空间权限才能继续使用，请在【设置-应用-World of Goo Mod 管理器-权限】中开启对应权限。</string>
+    <string name="grantpermissions_btn_1">取消</string>
+    <string name="grantpermissions_btn_2">授权</string>
 </resources>

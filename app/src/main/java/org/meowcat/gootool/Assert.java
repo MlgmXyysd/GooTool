@@ -13,7 +13,7 @@ public final class Assert {
     }
 
     public static void that(boolean expr, String message) {
-        if(BuildConfig.DEBUG && !expr) {
+        if (BuildConfig.DEBUG && !expr) {
             throw new AssertionError(message);
         }
     }

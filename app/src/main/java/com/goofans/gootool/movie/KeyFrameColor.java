@@ -12,16 +12,13 @@ import java.util.Map;
  * @author David Croft (davidc@goofans.com)
  * @version $Id: KeyFrameColor.java 389 2010-05-02 18:03:02Z david $
  */
-public class KeyFrameColor extends KeyFrame
-{
-  public KeyFrameColor(byte[] contents, int offset, int stringTableOffset)
-  {
-    super(contents, offset, stringTableOffset);
-  }
+public class KeyFrameColor extends KeyFrame {
+    public KeyFrameColor(byte[] contents, int offset, int stringTableOffset) {
+        super(contents, offset, stringTableOffset);
+    }
 
-  @Override
-  protected void setFrameXMLAttributes(Map<String, String> attributes)
-  {
-    attributes.put("color", String.valueOf(color));
-  }
+    @Override
+    protected void setFrameXMLAttributes(Map<String, String> attributes) {
+        attributes.put("color", String.valueOf(color));
+    }
 }

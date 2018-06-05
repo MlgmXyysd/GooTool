@@ -11,14 +11,14 @@ Crash log will stored in <storage>/Android/data/org.meowcat.gootool/files/crash/
 Most (all?) goomods that work on PC can be installed..
 
 #### Support
-- [Project Page](http://gootool.meowcat.org/)
+- [Project Page](http://g4a.meowcat.org/)
 
 #### Plans for the future
 - Allow multiple modded/unmodded installation
 - Backup saves from mods (may need hack game java source code)
 - Allow setting visible name of game.
 - Allow setting packagename of game.
-- 
+- Allow change game watermark.
 
 #### Links
 - [Downloads](http://cdn.meowcat.org/download?p=/meowcat/app/gootool/) (Select file and click '下载' or '普通下载'.)
