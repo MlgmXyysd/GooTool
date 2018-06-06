@@ -2,6 +2,8 @@
 <resources>
     <string name="app_name">GooTool</string>
     <string name="app_label">World Of Goo Mod Manager</string>
+    <string name="app_osl">Open Source Licence</string>
+    <string name="app_osl_notfound">File not found.</string>
     <string name="action_about">About</string>
     <string name="action_donate">Donate</string>
     <string name="action_settings">Settings</string>

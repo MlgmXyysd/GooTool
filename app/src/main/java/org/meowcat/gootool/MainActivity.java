@@ -76,10 +76,10 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        this.modsGrid = (DynamicGridView) findViewById(R.id.modsGrid);
+        this.modsGrid = findViewById(R.id.modsGrid);
         this.modsGrid.setAdapter(modListAdapter = new ModListDynamicGridViewAdapter(this, this.modsGrid));
         this.modsGrid.setEditModeEnabled(true);
         this.modsGrid.setWobbleInEditMode(false);
@@ -93,18 +93,18 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        this.pb = (ProgressBar) findViewById(R.id.installProgress);
+        this.pb = findViewById(R.id.installProgress);
         this.pb.setInterpolator(new LinearInterpolator());
 
-        this.text = (TextView) findViewById(R.id.textView);
+        this.text = findViewById(R.id.textView);
 
-        this.installModsBtn = (Button) findViewById(R.id.installModsBtn);
+        this.installModsBtn = findViewById(R.id.installModsBtn);
         this.installModsBtn.setOnClickListener(new GoomodInstaller(this, pb, text, modsGrid));
 
-        this.installApkBtn = (Button) findViewById(R.id.installApkBtn);
+        this.installApkBtn = findViewById(R.id.installApkBtn);
         this.installApkBtn.setOnClickListener(new ApkInstaller(this, pb, text));
 
-        this.addBtn = (Button) findViewById(R.id.addBtn);
+        this.addBtn = findViewById(R.id.addBtn);
         this.addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        this.rmBtn = (Button) findViewById(R.id.rmBtn);
+        this.rmBtn = findViewById(R.id.rmBtn);
         this.rmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         });
-        this.changeOrder = (Button) findViewById(R.id.changeOrderButton);
+        this.changeOrder = findViewById(R.id.changeOrderButton);
         this.changeOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -159,14 +159,14 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         });
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         assert drawer != null;
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         assert navigationView != null;
         navigationView.setNavigationItemSelectedListener(this);
         if (Build.VERSION.SDK_INT >= 23) {
@@ -295,7 +295,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         assert drawer != null;
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -321,7 +321,7 @@ public class MainActivity extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
@@ -340,7 +340,7 @@ public class MainActivity extends AppCompatActivity
 
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         assert drawer != null;
         drawer.closeDrawer(GravityCompat.START);
         return true;

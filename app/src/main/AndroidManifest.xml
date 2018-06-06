@@ -35,7 +35,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".OpenSourceLicencesActivity"></activity>
+        <activity
+            android:name=".OpenSourceLicencesActivity"
+            android:label="@string/app_osl"
+            android:parentActivityName=".MainActivity">
+        </activity>
     </application>
 
 </manifest>
