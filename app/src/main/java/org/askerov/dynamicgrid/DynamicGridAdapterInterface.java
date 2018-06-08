@@ -1,9 +1,9 @@
 package org.askerov.dynamicgrid;
 
-/**
- * Author: alex askerov
- * Date: 18/07/14
- * Time: 23:44
+/*
+  Author: alex askerov
+  Date: 18/07/14
+  Time: 23:44
  */
 
 /**

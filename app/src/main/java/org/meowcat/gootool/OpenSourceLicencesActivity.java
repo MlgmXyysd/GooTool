@@ -23,7 +23,7 @@ public class OpenSourceLicencesActivity extends AppCompatActivity {
         String markdown = readAssetsTxt(mContext,"Licences.md");
         RichText.fromMarkdown(markdown).into(mTextView);
     }
-    public String readAssetsTxt(Context context, String fileName){
+    public static String readAssetsTxt(Context context, String fileName){
         try {
             //Return an AssetManager instance for your application's package
             InputStream is = context.getAssets().open(fileName);
@@ -41,6 +41,6 @@ public class OpenSourceLicencesActivity extends AppCompatActivity {
             // throw new RuntimeException(e);
             e.printStackTrace();
         }
-        return getString(R.string.app_osl_notfound);
+        return "File not found.";
     }
 }

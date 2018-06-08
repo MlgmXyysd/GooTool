@@ -630,7 +630,7 @@ public class DynamicGridView extends GridView {
         if (isPostHoneycomb() && mWobbleInEditMode) {
             if (mIsEditMode) {
                 restartWobble();
-            } else {
+            } else{
                 stopWobble(true);
             }
         }
@@ -984,19 +984,19 @@ public class DynamicGridView extends GridView {
 
     public interface OnDragListener {
 
-        void onDragStarted(int position);
+        public void onDragStarted(int position);
 
-        void onDragPositionsChanged(int oldPosition, int newPosition);
+        public void onDragPositionsChanged(int oldPosition, int newPosition);
     }
 
     public interface OnEditModeChangeListener {
-        void onEditModeChanged(boolean inEditMode);
+        public void onEditModeChanged(boolean inEditMode);
     }
 
     public interface OnSelectedItemBitmapCreationListener {
-        void onPreSelectedItemBitmapCreation(View selectedView, int position, long itemId);
+        public void onPreSelectedItemBitmapCreation(View selectedView, int position, long itemId);
 
-        void onPostSelectedItemBitmapCreation(View selectedView, int position, long itemId);
+        public void onPostSelectedItemBitmapCreation(View selectedView, int position, long itemId);
     }
 
 
@@ -1139,4 +1139,3 @@ public class DynamicGridView extends GridView {
         }
     }
 }
-

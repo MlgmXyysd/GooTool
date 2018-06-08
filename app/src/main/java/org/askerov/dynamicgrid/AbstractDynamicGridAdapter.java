@@ -5,10 +5,10 @@ import android.widget.BaseAdapter;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- * Author: alex askerov
- * Date: 9/6/13
- * Time: 7:43 PM
+/*
+  Author: alex askerov
+  Date: 9/6/13
+  Time: 7:43 PM
  */
 
 
