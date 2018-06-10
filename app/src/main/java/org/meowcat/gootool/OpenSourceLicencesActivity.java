@@ -3,6 +3,7 @@ package org.meowcat.gootool;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.zzhoujay.richtext.RichText;
@@ -12,13 +13,13 @@ import java.io.InputStream;
 
 public class OpenSourceLicencesActivity extends AppCompatActivity {
 
-    public Context mContext;
+    public Context mContext = this;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_open_source_licences);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);//左侧添加一个默认的返回图标
-        getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         TextView mTextView = findViewById(R.id.textView3);
         String markdown = readAssetsTxt(mContext,"Licences.md");
         RichText.fromMarkdown(markdown).into(mTextView);

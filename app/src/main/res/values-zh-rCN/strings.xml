@@ -3,12 +3,14 @@
     <string name="app_name">GooTool</string>
     <string name="app_label">World Of Goo Mod 管理器</string>
     <string name="app_osl">开放源代码许可</string>
-    <string name="app_osl_notfound">文件未找到。</string>
     <string name="action_about">关于</string>
     <string name="action_donate">捐赠</string>
     <string name="action_settings">设置</string>
     <string name="btn_remove">删除</string>
     <string name="btn_delete">删除已选</string>
+    <string name="about_source_label">程序源代码</string>
+    <string name="about_changes_label">更新记录</string>
+    <string name="nav_modlist">Mod列表</string>
     <string name="add">选择欲添加的mod</string>
     <string name="exit">再按一次返回键退出</string>
     <string name="managernotfound">请先安装文件管理器</string>

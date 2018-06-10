@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity
     public static final String TAG = "GooTool";
     private static final int FILE_SELECT_CODE = 0;
     public Boolean ischangeorder = false;
+    public Boolean isInited = false;
     public Button installApkBtn;
     public Button installModsBtn;
     public Button changeOrder;
@@ -98,11 +99,11 @@ public class MainActivity extends AppCompatActivity
 
         this.text = findViewById(R.id.textView);
 
-        this.installModsBtn = findViewById(R.id.installModsBtn);
-        this.installModsBtn.setOnClickListener(new GoomodInstaller(this, pb, text, modsGrid));
+        //this.installModsBtn = findViewById(R.id.installModsBtn);
+        //this.installModsBtn.setOnClickListener(new GoomodInstaller(this, pb, text, modsGrid));
 
-        this.installApkBtn = findViewById(R.id.installApkBtn);
-        this.installApkBtn.setOnClickListener(new ApkInstaller(this, pb, text));
+        //this.installApkBtn = findViewById(R.id.installApkBtn);
+        //this.installApkBtn.setOnClickListener(new ApkInstaller(this, pb, text));
 
         this.addBtn = findViewById(R.id.addBtn);
         this.addBtn.setOnClickListener(new View.OnClickListener() {
@@ -325,19 +326,17 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_osl) {
-            Intent OSLIntent = new Intent(MainActivity.this, OpenSourceLicencesActivity.class);
-            startActivity(OSLIntent);
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        if (id == R.id.nav_mod) {
+            //TODO:Something code.
+        } else if (id == R.id.nav_settings) {
+            //Intent SettingIntent = new Intent(MainActivity.this, OpenSourceLicencesActivity.class);
+            //startActivity(SettingIntent);
+        } else if (id == R.id.nav_donate) {
+            //Intent DonateIntent = new Intent(MainActivity.this, OpenSourceLicencesActivity.class);
+            //startActivity(DonateIntent);
+        } else if (id == R.id.nav_about) {
+            Intent AboutIntent = new Intent(MainActivity.this, OpenSourceLicencesActivity.class);
+            startActivity(AboutIntent);
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -354,6 +353,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -362,23 +362,14 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_about) {
-            //TODO:About activity
-            //Intent aboutIntent = new Intent(MainActivity.this, AboutActivity.class);
-            //startActivity(aboutIntent);
-            return true;
-        }
-        if (id == R.id.action_donate) {
-            //TODO:Donate activity
-            //Intent donateIntent = new Intent(MainActivity.this, DonateActivity.class);
-            //startActivity(donateIntent);
-            return true;
-        }
-        if (id == R.id.action_settings) {
-            //TODO:Settings activity
-            //Intent donateIntent = new Intent(MainActivity.this, DonateActivity.class);
-            //startActivity(donateIntent);
-            return true;
+        if (id == R.id.action_save) {
+            if (isInited){
+                new GoomodInstaller(this, pb, text, modsGrid);
+            }
+        } else if (id == R.id.action_install) {
+            if (isInited){
+                new ApkInstaller(this, pb, text);
+            }
         }
 
         return super.onOptionsItemSelected(item);
@@ -488,7 +479,7 @@ public class MainActivity extends AppCompatActivity
         @Override
         protected void onPostExecute(Void nothing) {
             enableButtons();
-
+            isInited = true;
             pb.setVisibility(View.INVISIBLE);
             pb.setProgress(0);
             text.setText("");

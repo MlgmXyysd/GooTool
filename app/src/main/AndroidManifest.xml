@@ -38,8 +38,6 @@
         <activity
             android:name=".OpenSourceLicencesActivity"
             android:label="@string/app_osl"
-            android:parentActivityName=".MainActivity">
-        </activity>
+            android:parentActivityName=".MainActivity"/>
     </application>
-
 </manifest>

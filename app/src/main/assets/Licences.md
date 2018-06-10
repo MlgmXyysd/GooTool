@@ -1,4 +1,4 @@
-###World of Goo Mod Manager (GooTool for Android)
+####World of Goo Mod Manager (GooTool for Android)
 ```
                     GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
@@ -676,7 +676,7 @@ Public License instead of this License.  But first, please read
 <http://www.gnu.org/philosophy/why-not-lgpl.html>.
 ```
 
-###GooTool
+####GooTool
 ```
 COPYRIGHT NOTICE
 
@@ -699,7 +699,7 @@ Permission is granted to anyone to use this software for any purpose, including 
 4. You may not use the name "GooTool" in any modified version. For the avoidance of doubt, only original files downloaded from http://goofans.com/ may keep the name "GooTool"
 ```
 
-###SponcyCastle
+####SponcyCastle
 ```
 The BouncyCastle and SpongyCastle jar files are licensed under an adaptation of the MIT X11 license.
 ```
