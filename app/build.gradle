@@ -4,6 +4,7 @@ android {
     defaultConfig {
         applicationId "org.meowcat.gootool"
         minSdkVersion 16
+        //noinspection OldTargetApi
         targetSdkVersion 27
         versionCode 8
         versionName "1.0.7"
@@ -25,7 +26,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:support-v4:27.1.1'
     implementation 'com.android.support:support-vector-drawable:27.1.1'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.1'
     implementation 'com.android.support:design:27.1.1'
     implementation 'com.zzhoujay.richtext:richtext:3.0.7'
     testImplementation 'junit:junit:4.12'
