@@ -11,6 +11,9 @@
     <string name="about_source_label">程序源代码</string>
     <string name="about_changes_label">更新记录</string>
     <string name="nav_modlist">Mod列表</string>
+    <string name="about_developer">主要开发人员</string>
+    <string name="about_developer_label">小喵工作室 - MlgmXyysd</string>
+    <string name="nav_download">下载</string>
     <string name="add">选择欲添加的mod</string>
     <string name="exit">再按一次返回键退出</string>
     <string name="managernotfound">请先安装文件管理器</string>

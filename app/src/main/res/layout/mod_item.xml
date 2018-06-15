@@ -1,8 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView
+    android:id="@+id/card_view"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="30dp">
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginBottom="3dip"
+    android:layout_marginLeft="8dip"
+    android:layout_marginRight="8dip"
+    android:layout_marginTop="3dip"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:minHeight="?android:attr/listPreferredItemHeight"
+    card_view:cardCornerRadius="2dp"
+    card_view:cardElevation="2dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?android:attr/listPreferredItemHeight"
+        android:orientation="horizontal"
+        android:padding="8dp">
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="4dip"
+        android:layout_marginRight="4dip"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/mod_item_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:clickable="false"
+                android:singleLine="false"
+                android:text="Mod Name"
+                android:textIsSelectable="false"
+                android:textSize="16sp"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/version_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dip"
+                android:layout_marginStart="4dip"
+                android:ellipsize="middle"
+                android:gravity="end"
+                android:maxWidth="150dp"
+                android:singleLine="true"
+                android:text="Version"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@android:color/tertiary_text_dark"
+                android:textIsSelectable="false"
+                tools:ignore="HardcodedText" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="Description"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textIsSelectable="false"
+            tools:ignore="HardcodedText" />
+
+    </LinearLayout>
 
     <CheckBox
         android:id="@+id/mod_item_enabled"
@@ -10,16 +82,6 @@
         android:layout_height="wrap_content"
         android:checked="true"
         android:enabled="true" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/mod_item_title"
-        android:layout_width="fill_parent"
-        android:layout_height="20dp"
-        android:layout_gravity="center_vertical"
-        android:clickable="false"
-        android:singleLine="false"
-        android:text="Mod Name"
-        android:textSize="16sp"
-        tools:ignore="HardcodedText" />
-
-</LinearLayout>
+</android.support.v7.widget.CardView>

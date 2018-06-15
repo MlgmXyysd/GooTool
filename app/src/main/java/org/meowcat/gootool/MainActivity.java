@@ -60,8 +60,6 @@ public class MainActivity extends AppCompatActivity
     private static final int FILE_SELECT_CODE = 0;
     public Boolean ischangeorder = false;
     public Boolean isInited = false;
-    public Button installApkBtn;
-    public Button installModsBtn;
     public Button changeOrder;
 
     private Button addBtn, rmBtn;
@@ -301,23 +299,13 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
-        }
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK
-                && event.getAction() == KeyEvent.ACTION_DOWN) {
             if ((System.currentTimeMillis() - exitTime) > 2000) {
                 Toast.makeText(getApplicationContext(), R.string.exit, Toast.LENGTH_SHORT).show();
                 exitTime = System.currentTimeMillis();
             } else {
                 finish();
             }
-            return true;
         }
-        return super.onKeyDown(keyCode, event);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -328,14 +316,17 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_mod) {
             //TODO:Something code.
+        } else if (id == R.id.nav_download) {
+            //Intent DownloadIntent = new Intent(MainActivity.this, DownloadActivity.class);
+            //startActivity(DownloadIntent);
         } else if (id == R.id.nav_settings) {
-            //Intent SettingIntent = new Intent(MainActivity.this, OpenSourceLicencesActivity.class);
+            //Intent SettingIntent = new Intent(MainActivity.this, SettingsActivity.class);
             //startActivity(SettingIntent);
         } else if (id == R.id.nav_donate) {
-            //Intent DonateIntent = new Intent(MainActivity.this, OpenSourceLicencesActivity.class);
+            //Intent DonateIntent = new Intent(MainActivity.this, DonateActivity.class);
             //startActivity(DonateIntent);
         } else if (id == R.id.nav_about) {
-            Intent AboutIntent = new Intent(MainActivity.this, OpenSourceLicencesActivity.class);
+            Intent AboutIntent = new Intent(MainActivity.this, AboutActivity.class);
             startActivity(AboutIntent);
         }
 
@@ -360,18 +351,14 @@ public class MainActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_save) {
-            if (isInited){
-                new GoomodInstaller(this, pb, text, modsGrid);
-            }
-        } else if (id == R.id.action_install) {
-            if (isInited){
-                new ApkInstaller(this, pb, text);
-            }
+          if (isInited){
+         //noinspection SimplifiableIfStatement
+          if (id == R.id.action_save) {
+                  new GoomodInstaller(this, pb, text, modsGrid);
+           } else if (id == R.id.action_install) {
+                  new ApkInstaller(this, pb, text);
+         }
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -410,8 +397,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setButtonsEnabled(boolean value) {
-        installModsBtn.setEnabled(value);
-        installApkBtn.setEnabled(value);
         rmBtn.setEnabled(value);
         addBtn.setEnabled(value);
         changeOrder.setEnabled(value);

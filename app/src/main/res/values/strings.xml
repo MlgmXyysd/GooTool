@@ -11,6 +11,9 @@
     <string name="about_source_label">Source</string>
     <string name="about_changes_label">Changes Log</string>
     <string name="nav_modlist">Mod List</string>
+    <string name="nav_download">Download</string>
+    <string name="about_developer">Main Developer</string>
+    <string name="about_developer_label">MeowCat Studio - MlgmXyysd</string>
     <string name="btn_add">Add</string>
     <string name="add">Select a mod File to add</string>
     <string name="managernotfound">Please install a File Manager.</string>
