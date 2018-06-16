@@ -1,3 +1,42 @@
+--1.0.7 (Code:8) [2018/06/16]
+Merged AndroidSupport.java and PlatformSupport.java.
+Changed some code from ide's suggest.
+Add Simplified Chinese translation for Buttons & Menus.
+Fix crash when save changes.
+Rewrite Change Order button.
+Add Done switch for Change Order button.
+Add Open Source Licences Activity.
+Add About Activity.
+Add example Settings Activity.
+Add INTERNET permission.
+Fix toolbar.
+Fix navigation bar.
+Change toolbar's color.
+Add Permission Checker.
+Fix crash when deny required permissions in Android adk 23 and upper.
+Add exit confirm.
+Rename 'bouncycastle' to 'spongycastle'.
+Add implementation 'com.zzhoujay.richtext:richtext:3.0.7'.
+Fix crash when open OpenSourceLicencesActvity.
+Code cleanup.
+Remove save & install button.
+Update implementation 'com.android.support.constraint:constraint-layout' version.
+Remove some file head.
+Fix bug when compile.
+Fix UI bugs.
+New graphical user interface.
+Fix FileUriExposedException when install modded apk in Android sdk 24 and upper.
+Cance support for Android sdk 16.
+Remove BugCat.
+
+--1.0.6 (Code:7) [2018/06/6]
+Bump version.
+No changes log.
+
+--1.0.5 (Code:6) [2018/06/18]
+Bump version.
+No changes log.
+
 --1.0.4 (Code:5) [2018/05/13]
 Fixed crash when merging new chapter.
 Fixed crash when generating modded apk.
