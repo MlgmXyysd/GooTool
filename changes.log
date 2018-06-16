@@ -1,0 +1,24 @@
+--1.0.4 (Code:5) [2018/05/13]
+Fixed crash when merging new chapter.
+Fixed crash when generating modded apk.
+Fixed crash when signing modded apk.
+Fixed crash when first run.
+Add crash recorder.
+New theme for app.
+Change 'compile' to 'implementation'.
+
+--1.0.3 (Code:4) [2018/05/11]
+Update Gradle to 4.7.
+Add few Simplified Chinese language translation.
+Change menu 'Settings' to 'About'.
+Add library dependent 'BouncyCastle-1.52.0.0'.
+
+--1.0.2 (Code:3) [2018/05/10]
+Fixed crash when generating modded apk.
+
+--1.0.1 (Code:2) [2018/05/08]
+Fixed crash when signing modded apk.
+Add library dependent 'kellinwood-logging-lib-1.1'.
+
+--1.0.0 (Code:1) [2018/05/07]
+Inital version.
