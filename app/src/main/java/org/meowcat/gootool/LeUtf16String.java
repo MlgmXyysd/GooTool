@@ -16,7 +16,7 @@ public class LeUtf16String implements CharSequence {
 
     private final char[] rawData;
 
-    public LeUtf16String(char[] rawData) {
+    LeUtf16String(char[] rawData) {
         if (rawData.length < 2) {
             throw new IllegalArgumentException("Not enough data");
         }
@@ -25,9 +25,7 @@ public class LeUtf16String implements CharSequence {
         }
 
         char[] c = new char[rawData.length];
-        for (int i = 0; i < rawData.length; i++) {
-            c[i] = rawData[i];
-        }
+        System.arraycopy(rawData, 0, c, 0, rawData.length);
         this.rawData = c;
     }
 
@@ -73,9 +71,7 @@ public class LeUtf16String implements CharSequence {
         char encLen = (char) (len & 0xFF << 8 | len >> 8);
         char[] newSeq = new char[len + 2];
         newSeq[0] = encLen;
-        for (int i = 1; i < encLen; i++) {
-            newSeq[i] = this.rawData[i + start];
-        }
+        System.arraycopy(this.rawData, 1 + start, newSeq, 1, encLen - 1);
         return new LeUtf16String(newSeq);
     }
 
@@ -91,9 +87,7 @@ public class LeUtf16String implements CharSequence {
 
     public char[] getRawData() {
         char[] c = new char[rawData.length];
-        for (int i = 0; i < rawData.length; i++) {
-            c[i] = rawData[i];
-        }
+        System.arraycopy(rawData, 0, c, 0, rawData.length);
         return c;
     }
 

@@ -4,18 +4,15 @@
 
 package org.meowcat.gootool;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.goofans.gootool.addins.Addin;
@@ -24,7 +21,6 @@ import org.askerov.dynamicgrid.BaseDynamicGridAdapter;
 import org.askerov.dynamicgrid.DynamicGridView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ModListDynamicGridViewAdapter extends BaseDynamicGridAdapter {
     private boolean removeMode = false;
@@ -33,6 +29,7 @@ public class ModListDynamicGridViewAdapter extends BaseDynamicGridAdapter {
         super(context, new ArrayList<>(), 1);
     }
 
+    @SuppressLint("InflateParams")
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         ModViewHolder holder;
@@ -45,13 +42,14 @@ public class ModListDynamicGridViewAdapter extends BaseDynamicGridAdapter {
             holder = (ModViewHolder) convertView.getTag();
         }
         convertView.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
                 if (isRemoveMode() && ((event.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_DOWN)) {
 
-                    TextView titleText = (TextView) v.findViewById(R.id.mod_item_title);
-                    CheckBox enabled = (CheckBox) v.findViewById(R.id.mod_item_enabled);
+                    TextView titleText = v.findViewById(R.id.mod_item_title);
+                    CheckBox enabled = v.findViewById(R.id.mod_item_enabled);
                     ModListDynamicGridViewAdapter.GoomodEntry entry = (ModListDynamicGridViewAdapter.GoomodEntry) getItem(position);
                     entry.setToRemove(!entry.isToRemove());
                     boolean newrm = entry.isToRemove();
@@ -89,8 +87,8 @@ public class ModListDynamicGridViewAdapter extends BaseDynamicGridAdapter {
         private CheckBox enabled;
 
         private ModViewHolder(View view) {
-            titleText = (TextView) view.findViewById(R.id.mod_item_title);
-            enabled = (CheckBox) view.findViewById(R.id.mod_item_enabled);
+            titleText = view.findViewById(R.id.mod_item_title);
+            enabled = view.findViewById(R.id.mod_item_enabled);
         }
 
         void build(final GoomodEntry entry) {
@@ -112,7 +110,7 @@ public class ModListDynamicGridViewAdapter extends BaseDynamicGridAdapter {
         private boolean enabled;
         private boolean toRemove;
 
-        public GoomodEntry(Addin addin, boolean enabled) {
+        GoomodEntry(Addin addin, boolean enabled) {
             this.addin = addin;
             this.enabled = enabled;
         }

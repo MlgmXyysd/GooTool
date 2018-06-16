@@ -14,7 +14,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.view.KeyEvent;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -315,7 +314,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_mod) {
-            //TODO:Something code.
+            //Something code.
         } else if (id == R.id.nav_download) {
             //Intent DownloadIntent = new Intent(MainActivity.this, DownloadActivity.class);
             //startActivity(DownloadIntent);
@@ -351,17 +350,25 @@ public class MainActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-          if (isInited){
          //noinspection SimplifiableIfStatement
           if (id == R.id.action_save) {
-                  new GoomodInstaller(this, pb, text, modsGrid);
+              onSaveMod();
            } else if (id == R.id.action_install) {
-                  new ApkInstaller(this, pb, text);
+              onInstallApk();
          }
-        }
         return super.onOptionsItemSelected(item);
     }
 
+    public void onSaveMod() {
+        if (isInited){
+            new GoomodInstaller(this, pb, text, modsGrid);
+        }
+    }
+    public void onInstallApk() {
+        if (isInited){
+            new ApkInstaller(this, pb, text);
+        }
+    }
     @SuppressLint("ShowToast")
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -394,6 +401,9 @@ public class MainActivity extends AppCompatActivity
 
     public void enableButtons() {
         setButtonsEnabled(true);
+        if (!isInited) {
+            isInited = true;
+        }
     }
 
     private void setButtonsEnabled(boolean value) {
@@ -464,7 +474,6 @@ public class MainActivity extends AppCompatActivity
         @Override
         protected void onPostExecute(Void nothing) {
             enableButtons();
-            isInited = true;
             pb.setVisibility(View.INVISIBLE);
             pb.setProgress(0);
             text.setText("");
