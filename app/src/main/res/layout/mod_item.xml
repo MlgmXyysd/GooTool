@@ -39,7 +39,7 @@
                     tools:ignore="HardcodedText" />
 
                 <TextView
-                    android:id="@+id/version_name"
+                    android:id="@+id/mod_author_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dip"
@@ -48,13 +48,13 @@
                     android:gravity="end"
                     android:maxWidth="100dp"
                     android:singleLine="true"
-                    android:text="Version"
+                    android:text="Author"
                     android:textIsSelectable="false"
                     tools:ignore="HardcodedText" />
             </LinearLayout>
 
             <TextView
-                android:id="@+id/description"
+                android:id="@+id/mod_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"

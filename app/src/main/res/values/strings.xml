@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">GooTool</string>
-    <string name="app_label">World Of Goo Mod Manager</string>
+    <string name="app_label">World Of Goo Module Manager</string>
     <string name="app_osl">Open Source Licences</string>
     <string name="action_about">About</string>
     <string name="action_donate">Donate</string>
@@ -10,29 +10,40 @@
     <string name="btn_delete">Delete selected</string>
     <string name="about_source_label">Source</string>
     <string name="about_changes_label">Changes Log</string>
-    <string name="nav_modlist">Mod List</string>
+    <string name="nav_modlist">Module</string>
+    <string name="nav_support">Support</string>
     <string name="nav_download">Download</string>
     <string name="about_developer">Main Developer</string>
     <string name="about_developer_label">MeowCat Studio - MlgmXyysd</string>
     <string name="btn_add">Add</string>
-    <string name="add">Select a mod File to add</string>
+    <string name="add">Select a module File to add</string>
     <string name="managernotfound">Please install a File Manager.</string>
     <string name="exit">Press back again to exit.</string>
     <string name="deleted">Deleted selected goomods. Don\'t forget to save changes.</string>
-    <string name="delete_select">Click on goomod\'s name to select</string>
+    <string name="delete_select">Click on module\'s name to select</string>
     <string name="cantopen">Couldn\'t open file.</string>
-    <string name="invaild">Invalid addin file.</string>
+    <string name="invaild">Invalid module file.</string>
     <string name="readerror">File read error.</string>
     <string name="added">Addin already added.</string>
-    <string name="goomodadded">Successfully added addin. Don\'t forget to save changes.</string>
-    <string name="crash">Sorry,the application crash has stoped unexpectedly.</string>
+    <string name="goomodadded">Successfully added module. Don\'t forget to save changes.</string>
+    <string name="crash">Sorry,the application crash has stopped unexpectedly.</string>
     <string name="generating">Generating modded APK (progress bar not implemented yet)</string>
     <string name="signing">Signing modded APK</string>
     <string name="grantpermissions_1">GooTool need your permission granted to use the Storage, otherwise will not be able to continue to use.</string>
     <string name="grantpermissions_2">To continue to use GooTool you must permissions granted to use the Storage, please click on the [Grant] and give corresponding privileges in a pop-up window.</string>
-    <string name="grantpermissions_3">GooTool need you granted permission to continue to use the Storage, please go to [Settings - Apps - World of Goo Mod Manager - Permissions] to open the corresponding permissions.</string>
+    <string name="grantpermissions_3">GooTool need you granted permission to continue to use the Storage, please go to [Settings - Apps - World of Goo Module Manager - Permissions] to open the corresponding permissions.</string>
     <string name="grantpermissions_btn_1">Cancel</string>
     <string name="grantpermissions_btn_2">Continue</string>
+    <string name="title_activity_navigation">NavigationActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_subtitle">GooTool for Android.</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="btn_save">Save</string>
+    <string name="btn_install">Install</string>
+    <string name="btn_changeorder">Change Order</string>
+    <string name="btn_done">Done</string>
+    <string name="app_version_desc">Version:</string>
 
     <!-- Strings related to Settings -->
 
@@ -105,14 +116,4 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
-    <string name="title_activity_navigation">NavigationActivity</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_subtitle">GooTool for Android.</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="btn_save">Save</string>
-    <string name="btn_install">Install</string>
-    <string name="btn_changeorder">Change Order</string>
-    <string name="btn_done">Done</string>
-    <string name="app_version_desc">Version:</string>
 </resources>

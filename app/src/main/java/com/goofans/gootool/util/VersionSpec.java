@@ -5,6 +5,8 @@
 
 package com.goofans.gootool.util;
 
+import android.support.annotation.NonNull;
+
 import java.util.StringTokenizer;
 import java.util.Arrays;
 
@@ -21,7 +23,7 @@ public class VersionSpec implements Comparable<VersionSpec> {
     private final int[] version = new int[MAX_FIELDS];
     private int numDisplayFields;
 
-    public VersionSpec(int major, int minor, int micro) {
+    private VersionSpec(int major, int minor, int micro) {
         version[0] = major;
         version[1] = minor;
         version[2] = micro;
@@ -59,7 +61,7 @@ public class VersionSpec implements Comparable<VersionSpec> {
         return sb.toString();
     }
 
-    public int compareTo(VersionSpec that) {
+    public int compareTo(@NonNull VersionSpec that) {
         // Compare all components 0-3. Since unused fields default to 0, this allows correct comparison of 1.1 and 1.1.5.
         for (int i = 0; i < MAX_FIELDS; ++i) {
             if (this.version[i] < that.version[i]) return -1;

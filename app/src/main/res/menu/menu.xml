@@ -4,8 +4,12 @@
     tools:showIn="navigation_view">
         <item
             android:id="@+id/action_save"
-            android:title="@string/btn_save" />
+            android:title="@string/btn_save"
+            app:showAsAction="ifRoom"
+            android:icon="@drawable/ic_save"/>
         <item
             android:id="@+id/action_install"
-            android:title="@string/btn_install" />
+            android:title="@string/btn_install"
+            app:showAsAction="ifRoom"
+            android:icon="@drawable/ic_install"/>
 </menu>

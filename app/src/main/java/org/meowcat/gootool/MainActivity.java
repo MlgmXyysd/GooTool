@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         this.modsGrid = findViewById(R.id.modsGrid);
-        this.modsGrid.setAdapter(modListAdapter = new ModListDynamicGridViewAdapter(this, this.modsGrid));
+        this.modsGrid.setAdapter(modListAdapter = new ModListDynamicGridViewAdapter(this));
         this.modsGrid.setEditModeEnabled(true);
         this.modsGrid.setWobbleInEditMode(false);
         this.modsGrid.setOnDragListener(new DynamicGridView.OnDragListener() {
@@ -95,12 +95,6 @@ public class MainActivity extends AppCompatActivity
         this.pb.setInterpolator(new LinearInterpolator());
 
         this.text = findViewById(R.id.textView);
-
-        //this.installModsBtn = findViewById(R.id.installModsBtn);
-        //this.installModsBtn.setOnClickListener(new GoomodInstaller(this, pb, text, modsGrid));
-
-        //this.installApkBtn = findViewById(R.id.installApkBtn);
-        //this.installApkBtn.setOnClickListener(new ApkInstaller(this, pb, text));
 
         this.addBtn = findViewById(R.id.addBtn);
         this.addBtn.setOnClickListener(new View.OnClickListener() {
@@ -167,7 +161,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         assert navigationView != null;
         navigationView.setNavigationItemSelectedListener(this);
-        if (Build.VERSION.SDK_INT >= 23) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             boolean isAllGranted = checkPermissionAllGranted(
                     new String[]{
                             Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -319,11 +313,11 @@ public class MainActivity extends AppCompatActivity
             //Intent DownloadIntent = new Intent(MainActivity.this, DownloadActivity.class);
             //startActivity(DownloadIntent);
         } else if (id == R.id.nav_settings) {
-            //Intent SettingIntent = new Intent(MainActivity.this, SettingsActivity.class);
-            //startActivity(SettingIntent);
-        } else if (id == R.id.nav_donate) {
-            //Intent DonateIntent = new Intent(MainActivity.this, DonateActivity.class);
-            //startActivity(DonateIntent);
+            Intent SettingIntent = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivity(SettingIntent);
+        } else if (id == R.id.nav_support) {
+            //Intent SupportIntent = new Intent(MainActivity.this, SupportActivity.class);
+            //startActivity(SupportIntent);
         } else if (id == R.id.nav_about) {
             Intent AboutIntent = new Intent(MainActivity.this, AboutActivity.class);
             startActivity(AboutIntent);
@@ -339,37 +333,28 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu, menu);
-
         return true;
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-         //noinspection SimplifiableIfStatement
-          if (id == R.id.action_save) {
-              onSaveMod();
-           } else if (id == R.id.action_install) {
-              onInstallApk();
-         }
+        switch (item.getItemId()) {
+            case R.id.action_save:
+                if (isInited) {
+                    new GoomodInstaller(this, pb, text, modsGrid);
+                    isInited = false;
+                }
+                break;
+            case R.id.action_install:
+                if (isInited) {
+                    new ApkInstaller(this, pb, text);
+                    isInited = false;
+                }
+                break;
+        }
         return super.onOptionsItemSelected(item);
     }
 
-    public void onSaveMod() {
-        if (isInited){
-            new GoomodInstaller(this, pb, text, modsGrid);
-        }
-    }
-    public void onInstallApk() {
-        if (isInited){
-            new ApkInstaller(this, pb, text);
-        }
-    }
-    @SuppressLint("ShowToast")
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
@@ -383,7 +368,7 @@ public class MainActivity extends AppCompatActivity
                     File file = IOUtils.getFile(this, uri);
 
                     if (file == null) {
-                        Toast.makeText(this, R.string.cantopen, Toast.LENGTH_SHORT);
+                        Toast.makeText(this, R.string.cantopen, Toast.LENGTH_SHORT).show();
                         return;
                     }
 

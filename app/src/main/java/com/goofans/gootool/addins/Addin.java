@@ -25,7 +25,7 @@ public class Addin {
     private static final Logger log = Logger.getLogger(Addin.class.getName());
 
     public static final int TYPE_UNKNOWN = 0; // no loaded addin should ever have this type
-    public static final int TYPE_MOD = 1;
+    private static final int TYPE_MOD = 1;
     public static final int TYPE_LEVEL = 2;
 
     private static final String TYPE_UNKNOWN_STR = "Unknown";
@@ -55,7 +55,7 @@ public class Addin {
         this.author = author;
         this.dependencies = dependencies;
 
-        levels = new ArrayList<AddinLevel>();
+        levels = new ArrayList<>();
     }
 
     void addLevel(AddinLevel level) {

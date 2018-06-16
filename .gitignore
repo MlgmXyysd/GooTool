@@ -12,6 +12,8 @@ build/
 .signing/
 local.properties
 proguard/
+release/
+/*/release/
 /*/build/
 /*/local.properties
 /*/out

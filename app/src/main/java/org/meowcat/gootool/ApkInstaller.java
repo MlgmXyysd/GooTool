@@ -6,9 +6,10 @@ package org.meowcat.gootool;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -26,24 +27,12 @@ import kellinwood.security.zipsigner.ZipSigner;
 
 import static org.meowcat.gootool.MainActivity.TAG;
 
-public class ApkInstaller implements View.OnClickListener {
-
-    private final ProgressBar progress;
-    private final MainActivity a;
-    private TextView text;
+class ApkInstaller {
 
     @SuppressLint("StaticFieldLeak")
     ApkInstaller(MainActivity a, ProgressBar progress, TextView text) {
-        this.progress = progress;
-        this.a = a;
-        this.text = text;
-    }
-
-    @Override
-    public void onClick(View v) {
         a.disableButtons();
         new InstallModsTask(progress, a, text).execute();
-
     }
 
     private static final class InstallModsTask extends AsyncTask<Void, ProgressData, Boolean> {
@@ -78,9 +67,17 @@ public class ApkInstaller implements View.OnClickListener {
             if (!b) {
                 return;
             }
+            File file=new File(WorldOfGooAndroid.get().DATA_DIR, "modded.apk");
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setDataAndType(Uri.fromFile(new File(WorldOfGooAndroid.get().DATA_DIR, "modded.apk")), "application/vnd.android.package-archive");
-            a.startActivity(intent);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                Uri data = FileProvider.getUriForFile(a, a.getPackageName() + ".apkinstaller.fileprovider", file);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                intent.setDataAndType(data, "application/vnd.android.package-archive");
+                a.startActivity(intent);
+            } else {
+                intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+                a.startActivity(intent);
+            }
         }
 
         @Override
@@ -92,7 +89,7 @@ public class ApkInstaller implements View.OnClickListener {
             if (!this.putIntoApk(srcDir, zipFile)) return false;
 
             taskNum++;
-            setTaskProgress("Signing modded APK", 0);
+            setTaskProgress("Signing APK", 0);
             File signed = new File(WorldOfGooAndroid.get().DATA_DIR, "modded.apk");
             this.signApk(zipFile, signed);
             return true;
@@ -114,7 +111,7 @@ public class ApkInstaller implements View.OnClickListener {
                 signer.addProgressListener(new ProgressListener() {
                     @Override
                     public void onProgress(ProgressEvent event) {
-                        setTaskProgress("Signing modded APK", event.getPercentDone() / 100.0d);
+                        setTaskProgress("Signing APK", event.getPercentDone() / 100.0d);
                     }
                 });
                 signer.setKeymode(ZipSigner.MODE_AUTO);
@@ -135,8 +132,8 @@ public class ApkInstaller implements View.OnClickListener {
 
         @Override
         protected void onProgressUpdate(ProgressData... i) {
-            ProgressData pd = i[i.length - 1];
-            this.progress.setProgress((int) ((pd.progress + taskNum) * 100 / maxTask));
+            ProgressData pd = i[i.length-1];
+            this.progress.setProgress((int)((pd.progress + taskNum) * 100 /maxTask));
             text.setText(pd.name);
         }
 

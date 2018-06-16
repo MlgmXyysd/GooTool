@@ -25,7 +25,7 @@ import java.util.ArrayList;
 public class ModListDynamicGridViewAdapter extends BaseDynamicGridAdapter {
     private boolean removeMode = false;
 
-    ModListDynamicGridViewAdapter(Context context, DynamicGridView dgv) {
+    ModListDynamicGridViewAdapter(Context context) {
         super(context, new ArrayList<>(), 1);
     }
 
@@ -84,16 +84,23 @@ public class ModListDynamicGridViewAdapter extends BaseDynamicGridAdapter {
 
     private class ModViewHolder {
         private TextView titleText;
+        private TextView authorText;
+        private TextView descriptionText;
         private CheckBox enabled;
 
         private ModViewHolder(View view) {
             titleText = view.findViewById(R.id.mod_item_title);
+            authorText = view.findViewById(R.id.mod_author_name);
+            descriptionText = view.findViewById(R.id.mod_description);
             enabled = view.findViewById(R.id.mod_item_enabled);
         }
 
+        @SuppressLint("SetTextI18n")
         void build(final GoomodEntry entry) {
             titleText.setText(entry.getName());
             titleText.setTextColor(entry.isEnabled() ? Color.BLACK : Color.GRAY);
+            authorText.setText("@" + entry.getAuthor());
+            descriptionText.setText(entry.getDescription());
             enabled.setChecked(entry.isEnabled());
             enabled.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
@@ -123,8 +130,16 @@ public class ModListDynamicGridViewAdapter extends BaseDynamicGridAdapter {
             return enabled;
         }
 
+        public String getAuthor() {
+            return addin.getAuthor();
+        }
+
         public String getId() {
             return addin.getId();
+        }
+
+        public String getDescription() {
+            return addin.getDescription();
         }
 
         public Addin getAddin() {

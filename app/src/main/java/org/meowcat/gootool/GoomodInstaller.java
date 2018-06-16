@@ -19,22 +19,10 @@ import com.goofans.gootool.wog.WorldOfGoo;
 import java.io.IOException;
 import java.util.List;
 
-public class GoomodInstaller implements View.OnClickListener {
-    private MainActivity mainActivity;
-    private ProgressBar pb;
-    private TextView text;
-    private GridView modsGrid;
-
-    GoomodInstaller(MainActivity mainActivity, ProgressBar pb, TextView text, GridView modsGrid) {
-        this.mainActivity = mainActivity;
-        this.pb = pb;
-        this.text = text;
-        this.modsGrid = modsGrid;
-    }
+class GoomodInstaller {
 
     @SuppressLint("StaticFieldLeak")
-    @Override
-    public void onClick(View v) {
+    GoomodInstaller(final MainActivity mainActivity, final ProgressBar pb, final TextView text, final GridView modsGrid) {
         new AsyncTask<Void, ProgressData, Void>() {
             private Configuration cfg;
 
@@ -50,8 +38,6 @@ public class GoomodInstaller implements View.OnClickListener {
                     throw new RuntimeException(e);
                 }
 
-                cfg.setWatermark("GooTool for Android by MeowCat Studio. http://www.meowcat.org/");
-
                 ModListDynamicGridViewAdapter a = (ModListDynamicGridViewAdapter) modsGrid.getAdapter();
 
                 List<String> enabled = cfg.getEnabledAddins();
@@ -62,6 +48,8 @@ public class GoomodInstaller implements View.OnClickListener {
                     if (entry.isEnabled())
                         enabled.add(entry.getId());
                 }
+
+                cfg.setWatermark("GooTool for Android by MeowCat Studio. http://www.meowcat.org/");
             }
 
             @Override
