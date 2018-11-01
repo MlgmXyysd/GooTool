@@ -11,7 +11,7 @@ Crash log will stored in <storage>/Android/data/org.meowcat.gootool/files/crash/
 Most (all?) goomods that work on PC can be installed..
 
 #### Support
-- [Project Page](http://g4a.meowcat.org/)
+- [Project Page](http://gootool.worldofgoo.club/)
 
 #### Plans for the future
 - Allow multiple modded/unmodded installation
