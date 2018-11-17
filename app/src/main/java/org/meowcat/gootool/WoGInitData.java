@@ -4,6 +4,7 @@
 
 package org.meowcat.gootool;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 
@@ -13,6 +14,7 @@ import com.goofans.gootool.util.*;
  * A hack to allow passing data to WorldOfGooAndroid init() method...
  */
 public class WoGInitData {
+    @SuppressLint("StaticFieldLeak")
     private static Context context;
     private static PackageManager pman;
     private static ProgressListener pl;

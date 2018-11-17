@@ -83,13 +83,13 @@ class ApkInstaller {
         @Override
         protected Boolean doInBackground(Void... nothing) {
             taskNum++;
-            setTaskProgress("Generating APK (progress bar not implemented yet)", 0);
+            setTaskProgress(String.valueOf(R.string.generating), 0);
             File srcDir = WorldOfGooAndroid.get().TEMP_MODDED_DIR;
             File zipFile = new File(WorldOfGooAndroid.get().DATA_DIR, "modded_unsigned.apk");
             if (!this.putIntoApk(srcDir, zipFile)) return false;
 
             taskNum++;
-            setTaskProgress("Signing APK", 0);
+            setTaskProgress(String.valueOf(R.string.signing), 0);
             File signed = new File(WorldOfGooAndroid.get().DATA_DIR, "modded.apk");
             this.signApk(zipFile, signed);
             return true;
@@ -111,7 +111,7 @@ class ApkInstaller {
                 signer.addProgressListener(new ProgressListener() {
                     @Override
                     public void onProgress(ProgressEvent event) {
-                        setTaskProgress("Signing APK", event.getPercentDone() / 100.0d);
+                        setTaskProgress(String.valueOf(R.string.signing), event.getPercentDone() / 100.0d);
                     }
                 });
                 signer.setKeymode(ZipSigner.MODE_AUTO);

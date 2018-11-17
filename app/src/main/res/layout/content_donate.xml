@@ -8,4 +8,9 @@
     tools:context=".DonateActivity"
     tools:showIn="@layout/activity_donate">
 
+    <Button
+        android:id="@+id/copyBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/CopyButton" />
 </android.support.constraint.ConstraintLayout>

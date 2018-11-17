@@ -10,7 +10,7 @@
     <string name="btn_delete">删除已选</string>
     <string name="about_source_label">程序源代码</string>
     <string name="about_changes_label">更新记录</string>
-    <string name="nav_modlist">Mod列表</string>
+    <string name="nav_modlist">模块列表</string>
     <string name="about_developer">主要开发人员</string>
     <string name="about_developer_label">小喵工作室 - MlgmXyysd</string>
     <string name="nav_download">下载</string>
@@ -36,7 +36,10 @@
     <string name="app_version_desc">版本：</string>
     <string name="grantpermissions_1">GooTool 需要你授予存储空间权限，否则将无法继续使用。</string>
     <string name="grantpermissions_2">要继续使用 GooTool 你必须授予存储空间权限，请点击【授权】并在弹出的窗口中授予相应权限。</string>
-    <string name="grantpermissions_3">GooTool 需要你授予存储空间权限才能继续使用，请在【设置-应用-World of Goo 模组管理器-权限】中开启对应权限。</string>
+    <string name="grantpermissions_3">GooTool 需要你授予存储空间权限才能继续使用，请在【设置-应用-World of Goo 模块管理器-权限】中开启对应权限。</string>
     <string name="grantpermissions_btn_1">取消</string>
     <string name="grantpermissions_btn_2">授权</string>
+    <string name="CopyButton">复制到剪贴板</string>
+    <string name="btn_delete_temp">删除缓存文件</string>
+    <string name="delete_temp_desc">缓存文件会在应用启动时自动创建，用于构建游戏程序包，不会删除已安装的模块，可以放心删除。</string>
 </resources>

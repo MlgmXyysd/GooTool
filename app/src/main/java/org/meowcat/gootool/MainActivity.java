@@ -313,8 +313,8 @@ public class MainActivity extends AppCompatActivity
             //Intent DownloadIntent = new Intent(MainActivity.this, DownloadActivity.class);
             //startActivity(DownloadIntent);
         } else if (id == R.id.nav_settings) {
-            Intent SettingIntent = new Intent(MainActivity.this, SettingsActivity.class);
-            startActivity(SettingIntent);
+            //Intent SettingIntent = new Intent(MainActivity.this, SettingsActivity.class);
+            //startActivity(SettingIntent);
         } else if (id == R.id.nav_support) {
             //Intent SupportIntent = new Intent(MainActivity.this, SupportActivity.class);
             //startActivity(SupportIntent);
