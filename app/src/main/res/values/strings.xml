@@ -47,4 +47,5 @@
     <string name="CopyButton">Copy to Clipboard</string>
     <string name="btn_delete_temp">Remove temporary file</string>
     <string name="delete_temp_desc">Temporary file will be created when GooTool start.Used to build game install package.You can remove it safety.</string>
+    <string name="title_activity_donate_qr">QR Code</string>
 </resources>

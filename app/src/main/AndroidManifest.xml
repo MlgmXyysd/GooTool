@@ -35,7 +35,8 @@
         <activity
             android:name=".OpenSourceLicencesActivity"
             android:label="@string/app_osl"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity" />
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="org.meowcat.gootool.apkinstaller.fileprovider"
@@ -45,5 +46,11 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
+
+        <activity
+            android:name=".DonateQRActivity"
+            android:label="@string/title_activity_donate_qr"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
+
 </manifest>
