@@ -163,7 +163,7 @@ public class ModulesFragment extends Fragment {
     }
 
     private void setModuleViewListVisible() {
-        boolean value = WorldOfGoo.getAvailableAddins().size() != 0;
+        boolean value = modListAdapter.getCount() != 0;
         modsGrid.setVisibility(value ? View.VISIBLE : View.GONE);
         list_empty_tip.setVisibility(value ? View.GONE : View.VISIBLE);
     }

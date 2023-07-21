@@ -23,6 +23,7 @@ import mobi.meow.android.gootool.R;
 
 public class ModulesAdapter extends RecyclerView.Adapter<ModulesAdapter.ModulesViewHolder> {
     private final Context mContext;
+
     public ArrayList<Object> list = new ArrayList<>();
     private boolean removeMode = false;
 
