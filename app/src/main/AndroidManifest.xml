@@ -1,45 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.meowcat.gootool">
+    package="mobi.meow.android.gootool">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <application
-        android:name=".MeowCatApplication"
         android:allowBackup="true"
-        android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_label"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name=".DonateActivity"
-            android:label="@string/action_donate"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".AboutActivity"
-            android:label="@string/action_about"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
+            android:exported="true"
             android:theme="@style/AppTheme.NoActionBar">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
-
+                <action android:name="android.intent.action.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
-        <activity
-            android:name=".OpenSourceLicencesActivity"
-            android:label="@string/app_osl"
-            android:parentActivityName=".MainActivity" />
 
         <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="org.meowcat.gootool.apkinstaller.fileprovider"
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="mobi.meow.android.gootool.apkinstaller.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -47,10 +36,6 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <activity
-            android:name=".DonateQRActivity"
-            android:label="@string/title_activity_donate_qr"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

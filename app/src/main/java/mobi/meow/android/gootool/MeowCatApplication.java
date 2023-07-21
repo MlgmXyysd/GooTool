@@ -2,15 +2,23 @@
  * Copyright (c) 2013-2018 MeowCat Studio Powered by MlgmXyysd All Rights Reserved.
  */
 
-package org.meowcat.gootool;
+package mobi.meow.android.gootool;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
+import android.content.Context;
 
 public class MeowCatApplication extends Application {
+
+    public static final String TAG = "GooTool";
+
+    @SuppressLint("StaticFieldLeak")
+    public static Context context;
+
     @Override
     public void onCreate() {
-        super.onCreate();
         CrashHandler crashHandler = CrashHandler.getInstance();
         crashHandler.init(getApplicationContext());
+        super.onCreate();
     }
 }
