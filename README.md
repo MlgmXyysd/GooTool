@@ -8,7 +8,9 @@ This project allows to install modules on Android version of World of Goo (Class
 ## Current state
 
 All GooMods you want to install will stored in /sdcard/Android/data/mobi.meow.android.gootool/files/
+
 Crash log will stored in /sdcard/Android/data/mobi.meow.android.gootool/files/crash/
+
 Most GooMods that work on PC can be installed
 
 ## To-Dos
