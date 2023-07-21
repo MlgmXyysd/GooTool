@@ -25,6 +25,9 @@
     <string name="list_empty">已添加的模块将会显示在此</string>
     <string name="sort_tip">按住并拖动单个模块以排序</string>
 
+    <string name="game_not_found_title">未安装 World of Goo 游戏本体</string>
+    <string name="game_not_found_tips">GooTool 需要经典完整版 World of Goo (com.twodboy.worldofgoofull) 已安装在设备中。请安装游戏后重试。</string>
+
     <string name="permission_cancel">取消</string>
     <string name="permission_continue">授权</string>
     <string name="permission_title">GooTool 需要权限才能使用存储空间</string>

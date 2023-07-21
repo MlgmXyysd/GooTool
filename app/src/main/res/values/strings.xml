@@ -25,6 +25,9 @@
     <string name="list_empty">Added modules will be displayed here</string>
     <string name="sort_tip">Hold and drag a single module to sort</string>
 
+    <string name="game_not_found_title">World of Goo not found</string>
+    <string name="game_not_found_tips">GooTool needs the classic full version of World of Goo (com.twodboy.worldofgoofull) already installed in the device. Please install the game and retry.</string>
+
     <string name="permission_cancel">Cancel</string>
     <string name="permission_continue">Continue</string>
     <string name="permission_title">GooTool needs permissions to use the Storage</string>

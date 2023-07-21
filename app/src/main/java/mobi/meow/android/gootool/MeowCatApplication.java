@@ -7,6 +7,7 @@ package mobi.meow.android.gootool;
 import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 
 public class MeowCatApplication extends Application {
 
@@ -14,6 +15,8 @@ public class MeowCatApplication extends Application {
 
     @SuppressLint("StaticFieldLeak")
     public static Context context;
+
+    public static ApplicationInfo worldOfGooApp;
 
     @Override
     public void onCreate() {

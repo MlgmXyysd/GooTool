@@ -7,8 +7,6 @@ package com.goofans.gootool.wog;
 import static mobi.meow.android.gootool.MeowCatApplication.TAG;
 
 import android.content.Context;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -24,6 +22,7 @@ import java.util.Objects;
 
 import mobi.meow.android.gootool.AxmlModUtil;
 import mobi.meow.android.gootool.IOUtils;
+import mobi.meow.android.gootool.MeowCatApplication;
 import mobi.meow.android.gootool.WoGInitData;
 
 /**
@@ -55,8 +54,6 @@ public class WorldOfGooAndroid extends WorldOfGoo {
     public File WOG_APK_FILE = null;
     private final File LASTRUN_FILE = new File(DATA_DIR, "lastrun.txt");
 
-    private boolean isWogFound = false;
-
     private final Map<String, String> lastRunData = new HashMap<>();
 
     @Override
@@ -69,18 +66,12 @@ public class WorldOfGooAndroid extends WorldOfGoo {
         makeSureDirectoryExists(ORIGINAL_EXTRACTED_DIR);
         makeSureDirectoryExists(TEMP_MODDED_DIR);
 
-        PackageManager pm = WoGInitData.getPackageManager();
-
-        ApplicationInfo app;
-        try {
-            app = pm.getApplicationInfo("com.twodboy.worldofgoofull", 0);
-        } catch (PackageManager.NameNotFoundException e) {
-            Log.i(TAG, "World of Goo apk not found. Is it installed?");
+        if (MeowCatApplication.worldOfGooApp == null) {
             return;
         }
-        Log.i(TAG, String.format("Found World of Goo apk in %s", app.sourceDir));
-        WOG_APK_FILE = new File(app.sourceDir);
-        isWogFound = true;
+
+        Log.i(TAG, String.format("Found World of Goo apk in %s", MeowCatApplication.worldOfGooApp.sourceDir));
+        WOG_APK_FILE = new File(MeowCatApplication.worldOfGooApp.sourceDir);
         if (Objects.equals(lastRunData.get("original_apk_extracted"), "true")) {
             return;
         }
@@ -128,19 +119,15 @@ public class WorldOfGooAndroid extends WorldOfGoo {
         lastRunData.putAll(m);
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     private void saveLastRun() {
         //create the file
         try {
             LASTRUN_FILE.createNewFile();
-            PrintWriter pw = null;
-            try {
-                pw = new PrintWriter(new FileOutputStream(LASTRUN_FILE));
+            try (PrintWriter pw = new PrintWriter(new FileOutputStream(LASTRUN_FILE))) {
                 for (Map.Entry<String, String> e : lastRunData.entrySet()) {
                     pw.println(e.getKey() + "=" + e.getValue());
                 }
-            } finally {
-                if (pw != null)
-                    pw.close();
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -180,12 +167,12 @@ public class WorldOfGooAndroid extends WorldOfGoo {
     }
 
     @Override
-    public File getGameFile(String pathname) throws IOException {
+    public File getGameFile(String pathname) {
         return getAndroidGameFile(getWogDir(), pathname);
     }
 
     @Override
-    public File getCustomGameFile(String pathname) throws IOException {
+    public File getCustomGameFile(String pathname) {
         return getAndroidGameFile(getCustomDir(), pathname);
     }
 

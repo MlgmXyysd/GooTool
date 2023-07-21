@@ -1,12 +1,16 @@
 package mobi.meow.android.gootool;
 
+import static mobi.meow.android.gootool.MeowCatApplication.TAG;
+
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -69,6 +73,27 @@ public class MainActivity extends AppCompatActivity {
                 builder.setNegativeButton(R.string.permission_cancel, (dialog1, which1) -> System.exit(1));
                 builder.show();
             });
+            builder.show();
+        }
+
+        try {
+            MeowCatApplication.worldOfGooApp = getPackageManager().getApplicationInfo("com.twodboy.worldofgoofull", 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.i(TAG, "World of Goo apk not found. Trying fallback method.");
+            for (ApplicationInfo appInfo : getPackageManager().getInstalledApplications(0)) {
+                if (appInfo.packageName.equals("com.twodboy.worldofgoofull")) {
+                    Log.i(TAG, String.format("Found World of Goo apk in with fallback method in %s", appInfo.sourceDir));
+                    MeowCatApplication.worldOfGooApp = appInfo;
+                }
+            }
+        }
+
+        if (MeowCatApplication.worldOfGooApp == null) {
+            Log.i(TAG, "World of Goo apk not found. Is it installed?");
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.game_not_found_title);
+            builder.setMessage(R.string.game_not_found_tips);
+            builder.setPositiveButton(android.R.string.ok, (dialog, which) -> finish());
             builder.show();
         }
     }

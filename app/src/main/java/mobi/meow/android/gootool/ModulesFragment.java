@@ -287,6 +287,9 @@ public class ModulesFragment extends Fragment {
 
         @Override
         protected void onPostExecute(Void nothing) {
+            if (MeowCatApplication.worldOfGooApp == null) {
+                return;
+            }
             enableButtons();
             pb.setVisibility(View.INVISIBLE);
             pb.setProgress(0);
