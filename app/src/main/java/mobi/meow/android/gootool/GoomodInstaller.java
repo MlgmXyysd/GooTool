@@ -2,14 +2,15 @@
  * Copyright (c) 2013-2018 MeowCat Studio Powered by MlgmXyysd All Rights Reserved.
  */
 
-package org.meowcat.gootool;
+package mobi.meow.android.gootool;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.view.View;
-import android.widget.GridView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.goofans.gootool.model.Configuration;
 import com.goofans.gootool.util.ProgressListener;
@@ -18,11 +19,14 @@ import com.goofans.gootool.wog.WorldOfGoo;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
+
+import mobi.meow.android.gootool.adapter.ModulesAdapter;
 
 class GoomodInstaller {
 
     @SuppressLint("StaticFieldLeak")
-    GoomodInstaller(final MainActivity mainActivity, final ProgressBar pb, final TextView text, final GridView modsGrid) {
+    GoomodInstaller(final ModulesFragment mainActivity, final ProgressBar pb, final TextView text, final RecyclerView modsGrid) {
         new AsyncTask<Void, ProgressData, Void>() {
             private Configuration cfg;
 
@@ -38,18 +42,18 @@ class GoomodInstaller {
                     throw new RuntimeException(e);
                 }
 
-                ModListDynamicGridViewAdapter a = (ModListDynamicGridViewAdapter) modsGrid.getAdapter();
+                ModulesAdapter a = (ModulesAdapter) modsGrid.getAdapter();
 
                 List<String> enabled = cfg.getEnabledAddins();
                 enabled.clear();
 
-                for (int i = 0; i < a.getCount(); i++) {
-                    ModListDynamicGridViewAdapter.GoomodEntry entry = (ModListDynamicGridViewAdapter.GoomodEntry) a.getItem(i);
+                for (int i = 0; i < Objects.requireNonNull(a).getCount(); i++) {
+                    ModulesAdapter.GoomodEntry entry = (ModulesAdapter.GoomodEntry) a.getItem(i);
                     if (entry.isEnabled())
                         enabled.add(entry.getId());
                 }
 
-                cfg.setWatermark("GooTool for Android by MeowCat Studio. http://www.meowcat.org/");
+                cfg.setWatermark("GooTool for Android by NekoYuzu. https://www.neko.ink/");
             }
 
             @Override

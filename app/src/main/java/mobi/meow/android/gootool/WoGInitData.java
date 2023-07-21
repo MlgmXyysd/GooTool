@@ -2,13 +2,13 @@
  * Copyright (c) 2013-2018 MeowCat Studio Powered by MlgmXyysd All Rights Reserved.
  */
 
-package org.meowcat.gootool;
+package mobi.meow.android.gootool;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 
-import com.goofans.gootool.util.*;
+import com.goofans.gootool.util.ProgressListener;
 
 /**
  * A hack to allow passing data to WorldOfGooAndroid init() method...

@@ -2,7 +2,21 @@
  * Copyright (c) 2013-2018 MeowCat Studio Powered by MlgmXyysd All Rights Reserved.
  */
 
-package org.meowcat.gootool;
+package mobi.meow.android.gootool;
+
+import static mobi.meow.android.gootool.MeowCatApplication.TAG;
+
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.os.Build;
+import android.os.Looper;
+import android.util.Log;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -16,26 +30,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.os.Build;
-import android.os.Looper;
-import android.util.Log;
-import android.widget.Toast;
+import java.util.Objects;
 
 public class CrashHandler implements UncaughtExceptionHandler {
-    private static final String TAG = MainActivity.TAG;
     private Thread.UncaughtExceptionHandler mDefaultHandler;
     @SuppressLint("StaticFieldLeak")
-    private static CrashHandler INSTANCE = new CrashHandler();
+    private static final CrashHandler INSTANCE = new CrashHandler();
     private Context Context;
-    private Map<String, String> infos = new HashMap<>();
+    private final Map<String, String> infos = new HashMap<>();
     @SuppressLint("SimpleDateFormat")
-    private DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+    private final DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
 
     private CrashHandler() {
     }
@@ -51,7 +55,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
     }
 
     @Override
-    public void uncaughtException(Thread thread, Throwable ex) {
+    public void uncaughtException(@NonNull Thread thread, @NonNull Throwable ex) {
         if (!handleException(ex) && mDefaultHandler != null) {
             mDefaultHandler.uncaughtException(thread, ex);
         } else {
@@ -69,14 +73,11 @@ public class CrashHandler implements UncaughtExceptionHandler {
         if (ex == null) {
             return false;
         }
-        new Thread() {
-            @Override
-            public void run() {
-                Looper.prepare();
-                Toast.makeText(Context, R.string.crash, Toast.LENGTH_LONG).show();
-                Looper.loop();
-            }
-        }.start();
+        new Thread(() -> {
+            Looper.prepare();
+            Toast.makeText(Context, R.string.crash, Toast.LENGTH_LONG).show();
+            Looper.loop();
+        }).start();
         collectDeviceInfo(Context);
         saveCrashInfo2File(ex);
         return true;
@@ -99,7 +100,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
         for (Field field : fields) {
             try {
                 field.setAccessible(true);
-                infos.put(field.getName(), field.get(null).toString());
+                infos.put(field.getName(), Objects.requireNonNull(field.get(null)).toString());
                 Log.d(TAG, field.getName() + " : " + field.get(null));
             } catch (Exception e) {
                 Log.e(TAG, "An error occured when collect crash info", e);

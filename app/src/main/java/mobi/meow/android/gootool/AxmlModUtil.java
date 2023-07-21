@@ -2,7 +2,7 @@
  * Copyright (c) 2013-2018 MeowCat Studio Powered by MlgmXyysd All Rights Reserved.
  */
 
-package org.meowcat.gootool;
+package mobi.meow.android.gootool;
 
 import com.goofans.gootool.wog.WorldOfGooAndroid;
 
@@ -45,7 +45,6 @@ public class AxmlModUtil {
                     in.close();
                 } catch (IOException e) {
                     e.printStackTrace();
-                    return false;
                 }
         }
 
@@ -62,7 +61,6 @@ public class AxmlModUtil {
                     fos.close();
                 } catch (IOException e) {
                     e.printStackTrace();
-                    return false;
                 }
         }
         return true;
@@ -88,7 +86,6 @@ public class AxmlModUtil {
                     in.close();
                 } catch (IOException e) {
                     e.printStackTrace();
-                    return;
                 }
         }
 
@@ -112,11 +109,11 @@ public class AxmlModUtil {
         if (!in.markSupported()) {
             in = new BufferedInputStream(in, 1024);
         }
-        Assert.that(in.markSupported());
+//        Assert.that(in.markSupported());
         int read;
         String toReplace = "World of Goo";
         String replaceWith = "  WoG Mods  ";
-        Assert.that(toReplace.length() == replaceWith.length(), "length of the new name must be the same as the original name");
+//        Assert.that(toReplace.length() == replaceWith.length(), "length of the new name must be the same as the original name");
         while ((read = in.read()) != -1) {
             //assume that it contains only ASCII characters
             //it will unless it's some weird modified version that I won't support anyway
@@ -181,7 +178,7 @@ public class AxmlModUtil {
             strings[i] = readNextString(in);
         }
 
-        byte unknown[] = readUntilEof(in);
+        byte[] unknown = readUntilEof(in);
 
         LeUtf16String[] newStrings = new LeUtf16String[preTextInts.length];
 

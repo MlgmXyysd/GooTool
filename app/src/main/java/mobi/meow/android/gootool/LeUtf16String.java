@@ -2,9 +2,9 @@
  * Copyright (c) 2013-2018 MeowCat Studio Powered by MlgmXyysd All Rights Reserved.
  */
 
-package org.meowcat.gootool;
+package mobi.meow.android.gootool;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import java.util.Arrays;
 
@@ -59,9 +59,10 @@ public class LeUtf16String implements CharSequence {
         return (char) (l >>> 8 | l << 8);
     }
 
+    @NonNull
     @Override
     public CharSequence subSequence(int start, int end) {
-        if (start > end || start < 0 || end < 0 || start > this.length() || end > this.length()) {
+        if (start > end || start < 0 || start > this.length() || end > this.length()) {
             throw new IndexOutOfBoundsException(start + ", " + end);
         }
         int len = end - start;
