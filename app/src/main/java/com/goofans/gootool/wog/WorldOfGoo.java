@@ -8,19 +8,6 @@ package com.goofans.gootool.wog;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import org.meowcat.gootool.DuplicateAddinException;
-import org.meowcat.gootool.WoGInitData;
-
 import com.goofans.gootool.addins.Addin;
 import com.goofans.gootool.addins.AddinFactory;
 import com.goofans.gootool.addins.AddinFormatException;
@@ -29,6 +16,19 @@ import com.goofans.gootool.model.Language;
 import com.goofans.gootool.model.Resolution;
 import com.goofans.gootool.platform.PlatformSupport;
 import com.goofans.gootool.util.Utilities;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.StringTokenizer;
+import java.util.logging.Level;
+
+import mobi.meow.android.gootool.DuplicateAddinException;
+import mobi.meow.android.gootool.Logger;
+import mobi.meow.android.gootool.WoGInitData;
 
 /**
  * Encapsulates the static data about World of Goo, i.e. path and version.
@@ -49,7 +49,7 @@ public abstract class WorldOfGoo {
 
     private static final WorldOfGoo theInstance = new WorldOfGooAndroid();
 
-    private static List<Addin> availableAddins = new LinkedList<>();
+    public static List<Addin> availableAddins = new LinkedList<>();
 
     // TODO these should move into a new Preferences class
     static final String PREF_LASTVERSION = "gootool_version";
@@ -125,9 +125,7 @@ public abstract class WorldOfGoo {
             if (file.isFile() && file.getName().endsWith(GOOMOD_EXTENSION_WITH_DOT)) {
                 try {
                     availableAddins.add(AddinFactory.loadAddin(file));
-                } catch (AddinFormatException e) {
-                    log.log(Level.WARNING, "Ignoring invalid addin " + file + " in addins dir", e);
-                } catch (IOException e) {
+                } catch (AddinFormatException | IOException e) {
                     log.log(Level.WARNING, "Ignoring invalid addin " + file + " in addins dir", e);
                 }
             }
@@ -240,7 +238,7 @@ public abstract class WorldOfGoo {
 
         log.log(Level.INFO, "Installing addin " + addinId + " from " + addinFile + " to " + destFile);
 
-        Utilities.copyFile(addinFile, destFile);
+        Utilities.moveFile(addinFile, destFile);
 
         if (!skipUpdate)
             updateInstalledAddins();

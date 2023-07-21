@@ -4,14 +4,12 @@
  */
 package com.goofans.gootool.wog;
 
+import static mobi.meow.android.gootool.MeowCatApplication.TAG;
+
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.util.Log;
-
-import org.meowcat.gootool.AxmlModUtil;
-import org.meowcat.gootool.WoGInitData;
-import org.meowcat.gootool.IOUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -22,14 +20,17 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
-import static org.meowcat.gootool.MainActivity.*;
+import mobi.meow.android.gootool.AxmlModUtil;
+import mobi.meow.android.gootool.IOUtils;
+import mobi.meow.android.gootool.WoGInitData;
 
 /**
  * Android implementation of WorldOfGoo class, partially based on Linux/Windows implementations.
  */
 public class WorldOfGooAndroid extends WorldOfGoo {
-    private Context context = WoGInitData.getContext();
+    private final Context context = WoGInitData.getContext();
 
     /**
      * File names
@@ -51,7 +52,7 @@ public class WorldOfGooAndroid extends WorldOfGoo {
     private final File ORIGINAL_EXTRACTED_RES_DIR = new File(ORIGINAL_EXTRACTED_DIR, RES_DIR_LOCATION_IN_APK);
     private final File TEMP_MODDED_RES_DIR = new File(TEMP_MODDED_DIR, RES_DIR_LOCATION_IN_APK);
 
-    public File WOG_APK_FILE;
+    public File WOG_APK_FILE = null;
     private final File LASTRUN_FILE = new File(DATA_DIR, "lastrun.txt");
 
     private boolean isWogFound = false;
@@ -70,24 +71,17 @@ public class WorldOfGooAndroid extends WorldOfGoo {
 
         PackageManager pm = WoGInitData.getPackageManager();
 
-        String originalLocation;
-        for (ApplicationInfo app : pm.getInstalledApplications(0)) {
-            /*
-             * Package names
-             */
-            String WOG_PACKAGE_NAME = "com.twodboy.worldofgoofull";
-            if (app.packageName.equals(WOG_PACKAGE_NAME)) {
-                Log.i(TAG, String.format("Found World of Goo apk in %s", app.sourceDir));
-                originalLocation = app.sourceDir;
-                WOG_APK_FILE = new File(originalLocation);
-                isWogFound = true;
-            }
-        }
-        if (!isWogFound) {
+        ApplicationInfo app;
+        try {
+            app = pm.getApplicationInfo("com.twodboy.worldofgoofull", 0);
+        } catch (PackageManager.NameNotFoundException e) {
             Log.i(TAG, "World of Goo apk not found. Is it installed?");
             return;
         }
-        if (lastRunData.get("original_apk_extracted").equals("true")) {
+        Log.i(TAG, String.format("Found World of Goo apk in %s", app.sourceDir));
+        WOG_APK_FILE = new File(app.sourceDir);
+        isWogFound = true;
+        if (Objects.equals(lastRunData.get("original_apk_extracted"), "true")) {
             return;
         }
         forceClean();
@@ -98,7 +92,7 @@ public class WorldOfGooAndroid extends WorldOfGoo {
     private void forceClean() {
         WoGInitData.getProgressListener().beginStep("Extracting original APK", true);
         IOUtils.extractZip(WOG_APK_FILE, ORIGINAL_EXTRACTED_DIR, WoGInitData.getProgressListener());
-        WoGInitData.getProgressListener().beginStep("Deleting old modded directory", false);
+        WoGInitData.getProgressListener().beginStep("Deleting old modded directory", true);
         IOUtils.deleteDirContent(TEMP_MODDED_DIR);
 
         WoGInitData.getProgressListener().beginStep("Copying original files to new directory", false);
@@ -158,6 +152,7 @@ public class WorldOfGooAndroid extends WorldOfGoo {
         return Boolean.parseBoolean(lastRunData.get(val));
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     private void makeSureDirectoryExists(File file) {
         if (!file.isDirectory()) {
             Log.w(TAG, file + " already exists and is a file. Deleting...");
@@ -176,7 +171,7 @@ public class WorldOfGooAndroid extends WorldOfGoo {
 
     @Override
     public boolean isWogFound() {
-        return isWogFound;
+        return WOG_APK_FILE != null && WOG_APK_FILE.exists();
     }
 
     @Override

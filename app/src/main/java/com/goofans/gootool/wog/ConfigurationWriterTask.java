@@ -8,23 +8,32 @@ package com.goofans.gootool.wog;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import javax.xml.transform.TransformerException;
-
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import org.meowcat.gootool.IOUtils;
-import org.meowcat.gootool.WoGInitData;
-
 import com.goofans.gootool.ToolPreferences;
-import com.goofans.gootool.addins.*;
+import com.goofans.gootool.addins.Addin;
+import com.goofans.gootool.addins.AddinFactory;
+import com.goofans.gootool.addins.AddinFormatException;
+import com.goofans.gootool.addins.AddinInstaller;
+import com.goofans.gootool.addins.Merger;
 import com.goofans.gootool.model.Configuration;
 import com.goofans.gootool.model.Resolution;
-import com.goofans.gootool.util.*;
+import com.goofans.gootool.util.DebugUtil;
+import com.goofans.gootool.util.ProgressIndicatingTask;
+import com.goofans.gootool.util.ProgressListener;
+import com.goofans.gootool.util.Utilities;
+import com.goofans.gootool.util.Version;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+
+import javax.xml.transform.TransformerException;
+
+import mobi.meow.android.gootool.IOUtils;
+import mobi.meow.android.gootool.Logger;
+import mobi.meow.android.gootool.WoGInitData;
 
 /**
  * Handles the actual writing of the configuration to the World of Goo directory.
@@ -37,7 +46,7 @@ public class ConfigurationWriterTask extends ProgressIndicatingTask {
 
     private static final String[] resourceDirs = new String[]{"properties", "res", "libs"};
 
-    private static final List<String> skippedFiles = Arrays.asList("Thumbs.db");
+    private static final List<String> skippedFiles = List.of("Thumbs.db");
 
     private final Configuration configuration;
 

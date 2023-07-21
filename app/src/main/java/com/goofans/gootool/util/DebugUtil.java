@@ -5,8 +5,9 @@
 
 package com.goofans.gootool.util;
 
-import java.util.logging.Logger;
 import java.util.logging.Level;
+
+import mobi.meow.android.gootool.Logger;
 
 /**
  * Utilities for use only in test cases (psvm etc).

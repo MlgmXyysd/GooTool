@@ -8,14 +8,17 @@ package com.goofans.gootool.io;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import com.goofans.gootool.platform.PlatformSupport;
 import com.goofans.gootool.util.Utilities;
 import com.goofans.gootool.util.XMLUtil;
 
-import java.io.*;
-import java.util.logging.Logger;
-
 import org.w3c.dom.Document;
+
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+
+import mobi.meow.android.gootool.Logger;
 
 
 /**

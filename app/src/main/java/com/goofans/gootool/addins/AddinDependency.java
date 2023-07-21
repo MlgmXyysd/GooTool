@@ -8,7 +8,8 @@ package com.goofans.gootool.addins;
 import com.goofans.gootool.util.VersionSpec;
 
 import java.util.List;
-import java.util.logging.Logger;
+
+import mobi.meow.android.gootool.Logger;
 
 /**
  * Immutable after construction.

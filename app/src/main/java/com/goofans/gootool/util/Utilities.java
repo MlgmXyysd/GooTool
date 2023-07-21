@@ -5,12 +5,29 @@
 
 package com.goofans.gootool.util;
 
-import java.io.*;
+import static mobi.meow.android.gootool.MeowCatApplication.TAG;
+
+import android.content.Context;
+import android.net.Uri;
+import android.util.Log;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.Reader;
 import java.net.URL;
 import java.nio.channels.FileChannel;
-import java.util.*;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import mobi.meow.android.gootool.Logger;
 
 /**
  * Miscellaneous utilities, mostly IO-related.
@@ -288,6 +305,35 @@ public class Utilities {
         } finally {
             downloadStream.close();
         }
+        return tempFile;
+    }
+
+    /**
+     * Downloads a URL to a temporary file.
+     *
+     * @param uri     the URI to download.
+     * @param context context
+     * @return the temporary File with the contents.
+     * @throws IOException if the download failed.
+     */
+    public static File copyUriFileToTemp(Uri uri, Context context) throws IOException {
+        // Generate a temporary file
+        File tempFile = File.createTempFile("tmp-", null, context.getCacheDir());
+
+        log.fine("Copy " + uri + " to " + tempFile);
+
+        // Download to temp file
+        InputStream downloadStream = null;
+        try {
+            downloadStream = context.getContentResolver().openInputStream(uri);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        FileOutputStream outputStream = new FileOutputStream(tempFile);
+        copyStreams(downloadStream, outputStream);
+        outputStream.close();
+        downloadStream.close();
+        Log.d(TAG, "copyUriFileToTemp: ");
         return tempFile;
     }
 

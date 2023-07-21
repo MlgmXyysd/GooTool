@@ -7,22 +7,33 @@ package com.goofans.gootool.addins;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.ImageReader;
 
-import javax.xml.xpath.*;
+import com.goofans.gootool.util.VersionSpec;
+import com.goofans.gootool.util.XMLUtil;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.*;
-import java.util.logging.Logger;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.regex.Pattern;
 
-import com.goofans.gootool.util.VersionSpec;
-import com.goofans.gootool.util.XMLUtil;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
 
-import org.w3c.dom.*;
+import mobi.meow.android.gootool.Logger;
 
 /**
  * @author David Croft (davidc@goofans.com)

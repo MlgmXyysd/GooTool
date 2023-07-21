@@ -8,15 +8,11 @@ package com.goofans.gootool.addins;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import org.meowcat.gootool.IOUtils;
-
 import com.goofans.gootool.io.GameFormat;
 import com.goofans.gootool.io.UnicodeReader;
 import com.goofans.gootool.util.Utilities;
 import com.goofans.gootool.util.XMLUtil;
 import com.goofans.gootool.wog.WorldOfGoo;
-
-import net.infotrek.util.EncodingUtil;
 
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
@@ -33,14 +29,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.xml.transform.TransformerException;
+
+import mobi.meow.android.gootool.IOUtils;
+import mobi.meow.android.gootool.Logger;
 
 /**
  * Installs an addin into the current custom WoG.
@@ -251,7 +250,7 @@ public class AddinInstaller {
 
         File textFile = WorldOfGoo.getTheInstance().getCustomGameFile("properties/text.xml.bin");
         try {
-            Merger merger = new Merger(textFile, new InputStreamReader(IOUtils.getResource("level-text.xsl"), "UTF-8"));
+            Merger merger = new Merger(textFile, new InputStreamReader(IOUtils.getResource("level-text.xsl"), StandardCharsets.UTF_8));
             merger.setTransformParameter("level_name_string", makeString(levelNameId, level.getNames()));
             merger.setTransformParameter("level_text_string", makeString(levelTextId, level.getSubtitles()));
             merger.merge();
@@ -265,7 +264,7 @@ public class AddinInstaller {
 
         File islandFile = WorldOfGoo.getTheInstance().getCustomGameFile("res/islands/island1.xml.bin");
         try {
-            Merger merger = new Merger(islandFile, new InputStreamReader(IOUtils.getResource("level-island.xsl"), "UTF-8"));
+            Merger merger = new Merger(islandFile, new InputStreamReader(IOUtils.getResource("level-island.xsl"), StandardCharsets.UTF_8));
 
             merger.setTransformParameter("level_id", level.getDir());
             merger.setTransformParameter("level_name_id", levelNameId);
@@ -288,7 +287,7 @@ public class AddinInstaller {
         /* Now add our buttons to island1.scene.xml */
         File islandSceneFile = WorldOfGoo.getTheInstance().getCustomGameFile("res/levels/island1/island1.scene.bin");
         try {
-            Merger merger = new Merger(islandSceneFile, new InputStreamReader(IOUtils.getResource("level-island-scene.xsl"), "UTF-8"));
+            Merger merger = new Merger(islandSceneFile, new InputStreamReader(IOUtils.getResource("level-island-scene.xsl"), StandardCharsets.UTF_8));
 
             merger.setTransformParameter("level_id", level.getDir());
             merger.setTransformParameter("level_name_id", levelNameId);
@@ -365,7 +364,7 @@ public class AddinInstaller {
         }
 
         try {
-            GameFormat.encodeBinFile(gameTextFile, EncodingUtil.stringToBytesUtf8(XMLUtil.writeDocumentToString(gameStringsDoc)));
+            GameFormat.encodeBinFile(gameTextFile, XMLUtil.writeDocumentToString(gameStringsDoc).getBytes(StandardCharsets.UTF_8));
         } catch (TransformerException e) {
             throw new IOException("Unable to write text.xml: " + e.getLocalizedMessage());
         }

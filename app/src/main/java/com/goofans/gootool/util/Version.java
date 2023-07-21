@@ -5,12 +5,12 @@
 
 package com.goofans.gootool.util;
 
-import org.meowcat.gootool.IOUtils;
-
-import java.util.Date;
-import java.util.Properties;
-import java.util.Locale;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Properties;
+
+import mobi.meow.android.gootool.IOUtils;
 
 /**
  * Static access to the release/build version information. These are pulled from the release.properties

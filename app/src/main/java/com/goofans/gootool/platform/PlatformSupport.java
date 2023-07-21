@@ -9,9 +9,9 @@ import com.goofans.gootool.util.Utilities;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Logger;
 
-import org.meowcat.gootool.WoGInitData;
+import mobi.meow.android.gootool.Logger;
+import mobi.meow.android.gootool.WoGInitData;
 
 /**
  * On android there is only one supported platform so a lot of code has been removed.

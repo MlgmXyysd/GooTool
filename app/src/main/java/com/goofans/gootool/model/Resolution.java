@@ -5,10 +5,11 @@
 
 package com.goofans.gootool.model;
 
+import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.Collections;
-import java.util.logging.Logger;
+
+import mobi.meow.android.gootool.Logger;
 
 /**
  * A display resolution. Immutable after construction.
@@ -64,15 +65,15 @@ public class Resolution implements Comparable {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(width);
-        sb.append("x");
-        sb.append(height);
 
-        // figure out aspect ratio
+        String sb = width +
+                "x" +
+                height +
 
-        sb.append(" (").append(getAspectRatio()).append(")");
-        return sb.toString();
+                // figure out aspect ratio
+
+                " (" + getAspectRatio() + ")";
+        return sb;
     }
 
     @Override

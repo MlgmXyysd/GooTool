@@ -26,8 +26,13 @@ package com.goofans.gootool.io;
  * Unicode format = UTF-16LE
  */
 
-import java.io.*;
-import java.util.logging.Logger;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PushbackInputStream;
+import java.io.Reader;
+
+import mobi.meow.android.gootool.Logger;
 
 /**
  * Generic unicode textreader, which will use BOM mark

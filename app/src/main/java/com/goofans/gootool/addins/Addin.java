@@ -10,10 +10,11 @@ import android.graphics.Bitmap;
 import com.goofans.gootool.util.VersionSpec;
 
 import java.io.File;
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.logging.Logger;
+import java.util.List;
+
+import mobi.meow.android.gootool.Logger;
 
 /**
  * Immutable after construction. There are setters for the purpose of easier construction in AddinFactory, but they are package-local.

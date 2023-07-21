@@ -5,10 +5,10 @@
 
 package com.goofans.gootool.util;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
-import java.util.StringTokenizer;
 import java.util.Arrays;
+import java.util.StringTokenizer;
 
 /**
  * Specification of a version in n.n.n.n format (up to 4 numbers).

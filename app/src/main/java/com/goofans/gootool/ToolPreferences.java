@@ -8,21 +8,19 @@ package com.goofans.gootool;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import net.infotrek.util.TextUtil;
-
-import java.util.prefs.BackingStoreException;
-import java.util.Random;
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.StringTokenizer;
-import java.util.logging.Logger;
-import java.util.logging.Level;
-import java.io.IOException;
-import java.io.PrintStream;
-
-import org.meowcat.gootool.WoGInitData;
-
 import com.goofans.gootool.util.VersionSpec;
+
+import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+import java.util.Map;
+import java.util.Random;
+import java.util.StringTokenizer;
+import java.util.TreeMap;
+import java.util.prefs.BackingStoreException;
+
+import mobi.meow.android.gootool.Logger;
+import mobi.meow.android.gootool.WoGInitData;
 
 /**
  * This is specifically for preferences that relate to GooTool's state (e.g. whether translator mode is enabled).
@@ -71,7 +69,7 @@ public class ToolPreferences {
         byte[] idBytes = new byte[24];
         r.nextBytes(idBytes);
 
-        id = TextUtil.base64Encode(idBytes);
+        id = new String(Base64.getEncoder().encode(idBytes));
 
         setString(PREF_GOOTOOL_ID, id);
         return id;
@@ -162,16 +160,11 @@ public class ToolPreferences {
         String enc = PREFS.getString(PREF_GOOFANS_PASSWORD, null);
         if (enc == null) return null;
 
-        try {
-            return new String(TextUtil.base64Decode(enc));
-        } catch (IOException e) {
-            log.log(Level.SEVERE, "Base64 encoding exception in password, removing");
-            return null;
-        }
+        return new String(Base64.getDecoder().decode(enc.getBytes(StandardCharsets.UTF_8)));
     }
 
     public static void setGooFansPassword(String password) {
-        setString(PREF_GOOFANS_PASSWORD, TextUtil.base64Encode(password.getBytes()));
+        setString(PREF_GOOFANS_PASSWORD, new String(Base64.getEncoder().encode(password.getBytes())));
     }
 
     public static boolean isGooFansLoginOk() {

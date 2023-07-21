@@ -13,13 +13,18 @@ import com.goofans.gootool.util.XMLUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
-import javax.xml.transform.TransformerException;
-import javax.xml.xpath.*;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import javax.xml.transform.TransformerException;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
+
+import mobi.meow.android.gootool.Logger;
 
 /**
  * @author David Croft (davidc@goofans.com)
