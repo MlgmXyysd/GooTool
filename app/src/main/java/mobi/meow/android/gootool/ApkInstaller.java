@@ -2,35 +2,33 @@
  * Copyright (c) 2013-2018 MeowCat Studio Powered by MlgmXyysd All Rights Reserved.
  */
 
-package org.meowcat.gootool;
+package mobi.meow.android.gootool;
+
+import static mobi.meow.android.gootool.MeowCatApplication.TAG;
+import static mobi.meow.android.gootool.MeowCatApplication.context;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
-import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.core.content.FileProvider;
+
 import com.goofans.gootool.wog.WorldOfGooAndroid;
 
 import java.io.File;
 import java.io.IOException;
-import java.security.GeneralSecurityException;
 
-import kellinwood.security.zipsigner.ProgressEvent;
-import kellinwood.security.zipsigner.ProgressListener;
 import kellinwood.security.zipsigner.ZipSigner;
-
-import static org.meowcat.gootool.MainActivity.TAG;
 
 class ApkInstaller {
 
     @SuppressLint("StaticFieldLeak")
-    ApkInstaller(MainActivity a, ProgressBar progress, TextView text) {
+    ApkInstaller(ModulesFragment a, ProgressBar progress, TextView text) {
         a.disableButtons();
         new InstallModsTask(progress, a, text).execute();
     }
@@ -40,14 +38,13 @@ class ApkInstaller {
         @SuppressLint("StaticFieldLeak")
         private final ProgressBar progress;
         @SuppressLint("StaticFieldLeak")
-        private TextView text;
+        private final TextView text;
         @SuppressLint("StaticFieldLeak")
-        private final MainActivity a;
+        private final ModulesFragment a;
 
         private int taskNum = -1;
-        private final int maxTask = 2;
 
-        InstallModsTask(ProgressBar progress, MainActivity act, TextView text) {
+        InstallModsTask(ProgressBar progress, ModulesFragment act, TextView text) {
             this.progress = progress;
             this.text = text;
             this.a = act;
@@ -67,31 +64,35 @@ class ApkInstaller {
             if (!b) {
                 return;
             }
-            File file=new File(WorldOfGooAndroid.get().DATA_DIR, "modded.apk");
+
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                if (!context.getPackageManager().canRequestPackageInstalls()) {
+//                    context.startActivity(new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, Uri.parse("package:" + context.getPackageName())));
+//                }
+//            }
+
+            File file = new File(WorldOfGooAndroid.get().DATA_DIR, "WorldOfGoo.apk");
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                Uri data = FileProvider.getUriForFile(a, a.getPackageName() + ".apkinstaller.fileprovider", file);
-                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                intent.setDataAndType(data, "application/vnd.android.package-archive");
-                a.startActivity(intent);
-            } else {
-                intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
-                a.startActivity(intent);
-            }
+            Uri data = FileProvider.getUriForFile(a.requireContext(), a.requireContext().getPackageName() + ".apkinstaller.fileprovider", file);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.setDataAndType(data, "application/vnd.android.package-archive");
+            a.startActivity(intent);
         }
 
+        @SuppressWarnings("ResultOfMethodCallIgnored")
         @Override
         protected Boolean doInBackground(Void... nothing) {
             taskNum++;
-            setTaskProgress(String.valueOf(R.string.generating), 0);
+            setTaskProgress(context.getString(R.string.generating), 50);
             File srcDir = WorldOfGooAndroid.get().TEMP_MODDED_DIR;
-            File zipFile = new File(WorldOfGooAndroid.get().DATA_DIR, "modded_unsigned.apk");
+            File zipFile = new File(WorldOfGooAndroid.get().DATA_DIR, "modded.apk");
             if (!this.putIntoApk(srcDir, zipFile)) return false;
 
             taskNum++;
-            setTaskProgress(String.valueOf(R.string.signing), 0);
-            File signed = new File(WorldOfGooAndroid.get().DATA_DIR, "modded.apk");
+            setTaskProgress(context.getString(R.string.signing), 50);
+            File signed = new File(WorldOfGooAndroid.get().DATA_DIR, "WorldOfGoo.apk");
             this.signApk(zipFile, signed);
+            zipFile.delete();
             return true;
         }
 
@@ -108,32 +109,20 @@ class ApkInstaller {
         private void signApk(File apk, File signed) {
             try {
                 ZipSigner signer = new ZipSigner();
-                signer.addProgressListener(new ProgressListener() {
-                    @Override
-                    public void onProgress(ProgressEvent event) {
-                        setTaskProgress(String.valueOf(R.string.signing), event.getPercentDone() / 100.0d);
-                    }
-                });
+                signer.addProgressListener(event -> setTaskProgress(context.getString(R.string.signing), event.getPercentDone() / 100.0d));
                 signer.setKeymode(ZipSigner.MODE_AUTO);
                 signer.loadKeys(ZipSigner.KEY_TESTKEY);
                 signer.signZip(apk.getPath(), signed.getPath());
-            } catch (ClassNotFoundException e) {
-                Log.wtf(TAG, e);
-            } catch (IllegalAccessException e) {
-                Log.wtf(TAG, e);
-            } catch (InstantiationException e) {
-                Log.wtf(TAG, e);
-            } catch (GeneralSecurityException e) {
-                Log.wtf(TAG, e);
-            } catch (IOException e) {
+            } catch (Exception e) {
                 Log.wtf(TAG, e);
             }
         }
 
         @Override
         protected void onProgressUpdate(ProgressData... i) {
-            ProgressData pd = i[i.length-1];
-            this.progress.setProgress((int)((pd.progress + taskNum) * 100 /maxTask));
+            ProgressData pd = i[i.length - 1];
+            int maxTask = 2;
+            this.progress.setProgress((int) ((pd.progress + taskNum) * 100 / maxTask));
             text.setText(pd.name);
         }
 

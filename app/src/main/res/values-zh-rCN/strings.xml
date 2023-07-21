@@ -1,45 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">GooTool</string>
-    <string name="app_label">World Of Goo 模块管理器</string>
-    <string name="app_osl">开放源代码许可</string>
-    <string name="action_about">关于</string>
-    <string name="action_donate">捐赠</string>
-    <string name="action_settings">设置</string>
+    <string name="app_label">GooTool for Android</string>
+
     <string name="btn_remove">删除</string>
-    <string name="btn_delete">删除已选</string>
-    <string name="about_source_label">程序源代码</string>
-    <string name="about_changes_label">更新记录</string>
-    <string name="nav_modlist">模块列表</string>
-    <string name="about_developer">主要开发人员</string>
-    <string name="about_developer_label">小喵工作室 - MlgmXyysd</string>
-    <string name="nav_download">下载</string>
-    <string name="add">选择欲添加的模块</string>
+    <string name="btn_add">添加</string>
+    <string name="btn_build">安装</string>
+    <string name="btn_changeorder">更改顺序</string>
+    <string name="btn_done">完成</string>
+
+    <string name="add">请选择模块文件</string>
     <string name="exit">再按一次返回键退出</string>
     <string name="managernotfound">请先安装文件管理器</string>
-    <string name="deleted">已选模块已删除，不要忘了保存更改哦</string>
+    <string name="deleted">所选模块已删除</string>
     <string name="delete_select">点击模块名称来选择</string>
-    <string name="cantopen">无法打开文件</string>
+    <string name="cantopen">无法打开所选文件</string>
     <string name="invaild">所选文件不是有效的模块文件</string>
-    <string name="readerror">文件读取错误</string>
-    <string name="added">模块已经在列表中，请勿重复添加</string>
-    <string name="goomodadded">添加成功，不要忘了保存更改哦</string>
-    <string name="crash">，程序出现错误，即将退出</string>
-    <string name="generating">正在生成APK（进度条不会滚动）</string>
-    <string name="signing">正在对生成的APK进行签名</string>
-    <string name="btn_save">保存</string>
-    <string name="btn_install">安装</string>
-    <string name="btn_changeorder">更改顺序</string>
-    <string name="nav_support">支持</string>
-    <string name="btn_done">完成</string>
-    <string name="btn_add">添加</string>
-    <string name="app_version_desc">版本：</string>
-    <string name="grantpermissions_1">GooTool 需要你授予存储空间权限，否则将无法继续使用。</string>
-    <string name="grantpermissions_2">要继续使用 GooTool 你必须授予存储空间权限，请点击【授权】并在弹出的窗口中授予相应权限。</string>
-    <string name="grantpermissions_3">GooTool 需要你授予存储空间权限才能继续使用，请在【设置-应用-World of Goo 模块管理器-权限】中开启对应权限。</string>
-    <string name="grantpermissions_btn_1">取消</string>
-    <string name="grantpermissions_btn_2">授权</string>
-    <string name="CopyButton">复制到剪贴板</string>
-    <string name="btn_delete_temp">删除缓存文件</string>
-    <string name="delete_temp_desc">缓存文件会在应用启动时自动创建，用于构建游戏程序包，不会删除已安装的模块，可以放心删除。</string>
+    <string name="readerror">所选文件读取错误</string>
+    <string name="added">所选模块已经在列表中</string>
+    <string name="goomodadded">添加成功</string>
+    <string name="crash">程序出现意外错误，即将退出。</string>
+    <string name="generating">正在生成 APK</string>
+    <string name="signing">正在签名 APK</string>
+    <string name="list_empty">已添加的模块将会显示在此</string>
+    <string name="sort_tip">按住并拖动单个模块以排序</string>
+
+    <string name="permission_cancel">取消</string>
+    <string name="permission_continue">授权</string>
+    <string name="permission_title">GooTool 需要权限才能使用存储空间</string>
+    <string name="permission_tips">GooTool 需要权限来保存模块，请在弹出的窗口中授予。</string>
+    <string name="permission_warn">要继续使用 GooTool，你必须授予权限。</string>
+    <string name="permission_manual">GooTool 需要你授予权限才能继续使用。请在【设置-应用-World of Goo 模块管理器-权限】中开启权限。</string>
+
 </resources>
