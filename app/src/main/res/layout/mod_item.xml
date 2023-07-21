@@ -1,66 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="?android:attr/listPreferredItemHeight"
-        android:orientation="horizontal"
-        android:padding="8dp">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="?android:attr/listPreferredItemHeight"
+    android:orientation="horizontal"
+    android:padding="8dp">
+
     <CheckBox
         android:id="@+id/mod_item_enabled"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:checked="true"
         android:enabled="true"
-        android:focusable="false"
+        android:focusable="true"
         android:gravity="center_vertical"
         android:padding="3dp" />
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="4dip"
+        android:layout_marginRight="4dip"
+        android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="4dip"
-            android:layout_marginRight="4dip"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/mod_item_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="4dip"
-                    android:layout_marginRight="4dip"
-                    android:text="Mod Name"
-                    tools:ignore="HardcodedText" />
-
-                <TextView
-                    android:id="@+id/mod_author_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dip"
-                    android:layout_marginStart="4dip"
-                    android:ellipsize="middle"
-                    android:gravity="end"
-                    android:maxWidth="100dp"
-                    android:singleLine="true"
-                    android:text="Author"
-                    android:textIsSelectable="false"
-                    tools:ignore="HardcodedText" />
-            </LinearLayout>
+            android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/mod_description"
+                android:id="@+id/mod_item_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="Description"
+                android:text="Module Name"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/mod_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dip"
+                android:ellipsize="middle"
+                android:gravity="end"
+                android:singleLine="true"
+                android:text="Version"
+                android:textIsSelectable="false"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/mod_author_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dip"
+                android:ellipsize="middle"
+                android:gravity="end"
+                android:singleLine="true"
+                android:text="Author"
                 android:textIsSelectable="false"
                 tools:ignore="HardcodedText" />
 
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/mod_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="middle"
+                android:gravity="end"
+                android:singleLine="true"
+                android:text="Type"
+                android:textIsSelectable="false"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/mod_package_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dip"
+                android:ellipsize="middle"
+                android:gravity="end"
+                android:singleLine="true"
+                android:text="Package Name"
+                android:textIsSelectable="false"
+                tools:ignore="HardcodedText" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/mod_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="Description"
+            android:textIsSelectable="false"
+            tools:ignore="HardcodedText" />
     </LinearLayout>
+
+</LinearLayout>
