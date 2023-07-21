@@ -2,20 +2,19 @@
  * Copyright (c) 2013-2018 MeowCat Studio Powered by MlgmXyysd All Rights Reserved.
  */
 
-package org.meowcat.gootool;
+package mobi.meow.android.gootool;
+
+import static mobi.meow.android.gootool.MeowCatApplication.TAG;
 
 import android.annotation.SuppressLint;
-import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.webkit.MimeTypeMap;
 
 import com.goofans.gootool.util.ProgressListener;
 import com.goofans.gootool.util.Utilities;
@@ -32,6 +31,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -52,57 +52,7 @@ public class IOUtils {
         }
     }
 
-    public static final void extractZip(File f, File to, ProgressListener pl) {
-        byte[] buffer = new byte[1024];
-
-        try {
-
-            //create output directory is not exists
-            File folder = to;
-            if (!folder.exists()) {
-                folder.mkdir();
-            }
-
-            final long size = getUncompressedZipSize(f);
-            long unpackedBytes = 0;
-            pl.progressStep(0.08f);
-            //get the zip file content
-            ZipInputStream zis =
-                    new ZipInputStream(new FileInputStream(f));
-            //get the zipped file list entry
-            ZipEntry ze;
-            while ((ze = zis.getNextEntry()) != null) {
-
-                String fileName = ze.getName();
-                File newFile = new File(to + File.separator + fileName);
-
-                System.out.println("file unzip : " + newFile.getAbsoluteFile());
-
-                //create all non exists folders
-                //else you will hit FileNotFoundException for compressed folder
-                new File(newFile.getParent()).mkdirs();
-
-                FileOutputStream fos = new FileOutputStream(newFile);
-
-                int len;
-                while ((len = zis.read(buffer)) > 0) {
-                    fos.write(buffer, 0, len);
-                    unpackedBytes += len;
-                    pl.progressStep((unpackedBytes / (float) size) * 0.9F + 0.1F);
-                }
-
-                fos.close();
-            }
-
-            zis.closeEntry();
-            zis.close();
-
-            System.out.println("Done");
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
+    private static final boolean DEBUG = true; // Set to true to enable logging
 
     private static long getUncompressedZipSize(File f) throws IOException {
         //get the zip file content
@@ -126,6 +76,64 @@ public class IOUtils {
         }
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    public static void extractZip(File f, File to, ProgressListener pl) {
+        byte[] buffer = new byte[1024];
+
+        try {
+
+            //create output directory is not exists
+            if (!to.exists()) {
+                to.mkdir();
+            }
+
+            final long size = getUncompressedZipSize(f);
+            long unpackedBytes = 0;
+            pl.progressStep(0.08f);
+            //get the zip file content
+            ZipInputStream zis =
+                    new ZipInputStream(new FileInputStream(f));
+            //get the zipped file list entry
+            ZipEntry ze;
+            while ((ze = zis.getNextEntry()) != null) {
+
+                String fileName = ze.getName();
+                File newFile = new File(to + File.separator + fileName);
+
+                System.out.println("file unzip : " + newFile.getAbsoluteFile());
+
+                //create all non exists folders
+                //else you will hit FileNotFoundException for compressed folder
+                new File(Objects.requireNonNull(newFile.getParent())).mkdirs();
+
+                FileOutputStream fos = new FileOutputStream(newFile);
+
+                int len;
+                while ((len = zis.read(buffer)) > 0) {
+                    fos.write(buffer, 0, len);
+                    unpackedBytes += len;
+                    pl.progressStep((unpackedBytes / (float) size) * 0.9F + 0.1F);
+                }
+
+                fos.close();
+            }
+
+            zis.closeEntry();
+            zis.close();
+
+            System.out.println("Done");
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private static Set<File> getAllFilesToAdd(File sourceDir) throws IOException {
+        Set<File> set = new HashSet<>();
+        scanDirectoryRecursive(sourceDir, set);
+        return set;
+    }
+
     /**
      * Uses given ZipBase as source zip file for zipio library and replaces content of existing files with files in soedified location.
      */
@@ -142,7 +150,7 @@ public class IOUtils {
         //zipio will copy properties of example file like zip specification version, compression method etc...
         //they can't be set in any other way, except reflection hacks
         //and because we use hacks to decrease memory usage - we need to get cloned entry before we add files to apk.
-        ZioEntry baseEntry = zinEntries.get("assets/res/islands/island1.xml.mp3").getClonedEntry("UNNAMED");
+        ZioEntry baseEntry = Objects.requireNonNull(zinEntries.get("assets/res/islands/island1.xml.mp3")).getClonedEntry("UNNAMED");
 
         Iterator<Map.Entry<String, ZioEntry>> it = zinEntries.entrySet().iterator();
         //write entries that are there already
@@ -150,11 +158,11 @@ public class IOUtils {
             Map.Entry<String, ZioEntry> entry = it.next();
             File f = new File(sourceDir, entry.getKey()).getCanonicalFile();
             if (!f.exists()) {
-                Log.w(MainActivity.TAG, "File doesn't exist, skipping: " + f);
-                Assert.that(!filesToAdd.contains(f));
+                Log.w(TAG, "File doesn't exist, skipping: " + f);
+//                Assert.that(!filesToAdd.contains(f));
                 continue;
             }
-            Log.i(MainActivity.TAG, "Zipping file: " + f);
+            Log.i(TAG, "Zipping file: " + f);
             InputStream in = new BufferedInputStream(new FileInputStream(f));
             OutputStream os = entry.getValue().getOutputStream();
             writeInToOut(in, os);
@@ -201,22 +209,6 @@ public class IOUtils {
         zin.close();
     }
 
-    private static Set<File> getAllFilesToAdd(File sourceDir) throws IOException {
-        Set<File> set = new HashSet<>();
-        scanDirectoryRecursive(sourceDir, set);
-        return set;
-    }
-
-    private static void scanDirectoryRecursive(File dir, Set<File> set) throws IOException {
-        for (File f : dir.listFiles()) {
-            if (f.isDirectory()) {
-                scanDirectoryRecursive(f, set);
-                continue;
-            }
-            set.add(f.getCanonicalFile());
-        }
-    }
-
     public static void writeInToOut(InputStream in, OutputStream out) throws IOException {
         byte[] buf = new byte[16 * 1024];
         int l;
@@ -225,12 +217,23 @@ public class IOUtils {
         }
     }
 
+    private static void scanDirectoryRecursive(File dir, Set<File> set) throws IOException {
+        for (File f : Objects.requireNonNull(dir.listFiles())) {
+            if (f.isDirectory()) {
+                scanDirectoryRecursive(f, set);
+                continue;
+            }
+            set.add(f.getCanonicalFile());
+        }
+    }
+
     public static void deleteDirContent(File dir) {
-        for (File sub : dir.listFiles()) {
+        for (File sub : Objects.requireNonNull(dir.listFiles())) {
             deleteFile(sub);
         }
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public static void deleteFile(File file) {
         if (file.isDirectory()) {
             deleteDirContent(file);
@@ -239,8 +242,7 @@ public class IOUtils {
     }
 
     public static void copyFilesExcept(File src, File dest, String... ignoredFiles) {
-        Set<String> toIgnore = new HashSet<String>();
-        toIgnore.addAll(Arrays.asList(ignoredFiles));
+        Set<String> toIgnore = new HashSet<>(Arrays.asList(ignoredFiles));
 
         try {
             copyFilesExcept(src, dest, toIgnore);
@@ -249,8 +251,9 @@ public class IOUtils {
         }
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public static void copyFilesExcept(File src, File dest, Set<String> toIgnore) throws IOException {
-        for (File file : src.listFiles()) {
+        for (File file : Objects.requireNonNull(src.listFiles())) {
             if (toIgnore.contains(file.getName())) {
                 continue;
             }
@@ -264,64 +267,11 @@ public class IOUtils {
         }
     }
 
-    private static final boolean DEBUG = false; // Set to true to enable logging
-
-    /**
-     * Gets the extension of a file name, like ".png" or ".jpg".
-     *
-     * @param uri
-     * @return Extension including the dot("."); "" if there is no extension;
-     * null if uri was null.
-     */
-    public static String getExtension(String uri) {
-        if (uri == null) {
-            return null;
-        }
-
-        int dot = uri.lastIndexOf(".");
-        if (dot >= 0) {
-            return uri.substring(dot);
-        } else {
-            // No extension.
-            return "";
-        }
-    }
-
     /**
      * @return Whether the URI is a local one.
      */
     public static boolean isLocal(String url) {
         return url != null && !url.startsWith("http://") && !url.startsWith("https://");
-    }
-
-    /**
-     * @return True if Uri is a MediaStore Uri.
-     * @author paulburke
-     */
-    public static boolean isMediaUri(Uri uri) {
-        return "media".equalsIgnoreCase(uri.getAuthority());
-    }
-
-
-    /**
-     * @return The MIME type for the given file.
-     */
-    public static String getMimeType(File file) {
-
-        String extension = getExtension(file.getName());
-
-        if (extension.length() > 0)
-            return MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension.substring(1));
-
-        return "application/octet-stream";
-    }
-
-    /**
-     * @return The MIME type for the give Uri.
-     */
-    public static String getMimeType(Context context, Uri uri) {
-        File file = new File(getPath(context, uri));
-        return getMimeType(file);
     }
 
 
@@ -380,9 +330,12 @@ public class IOUtils {
                 column
         };
 
+        Log.d(TAG, uri.toString());
+
         try {
             cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs,
                     null);
+            DatabaseUtils.dumpCursor(cursor);
             if (cursor != null && cursor.moveToFirst()) {
                 if (DEBUG)
                     DatabaseUtils.dumpCursor(cursor);
@@ -412,10 +365,10 @@ public class IOUtils {
      * @see #getFile(Context, Uri)
      */
     @SuppressLint("NewApi")
-    public static String getPath(final Context context, final Uri uri) {
+    public static String getPath(final Context context, Uri uri) {
 
         if (DEBUG)
-            Log.d(MainActivity.TAG + " File -",
+            Log.d(TAG + " File -",
                     "Authority: " + uri.getAuthority() +
                             ", Fragment: " + uri.getFragment() +
                             ", Port: " + uri.getPort() +
@@ -425,10 +378,8 @@ public class IOUtils {
                             ", Segments: " + uri.getPathSegments().toString()
             );
 
-        final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
-
         // DocumentProvider
-        if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {
+        if (DocumentsContract.isDocumentUri(context, uri)) {
             if (isExternalStorageDocument(uri)) {
                 final String docId = DocumentsContract.getDocumentId(uri);
                 final String[] split = docId.split(":");
@@ -444,10 +395,10 @@ public class IOUtils {
             else if (isDownloadsDocument(uri)) {
 
                 final String id = DocumentsContract.getDocumentId(uri);
-                final Uri contentUri = ContentUris.withAppendedId(
-                        Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
-
-                return getDataColumn(context, contentUri, null, null);
+                if (id.startsWith("raw:")) {
+                    return id.replaceFirst("raw:", "");
+                }
+                return getDataColumn(context, uri, null, null);
             }
             // MediaProvider
             else if (isMediaDocument(uri)) {
@@ -469,6 +420,7 @@ public class IOUtils {
                         split[1]
                 };
 
+                assert contentUri != null;
                 return getDataColumn(context, contentUri, selection, selectionArgs);
             } else {
                 //it may be LocalStorageProvider, I don't know how to check for it
@@ -504,28 +456,11 @@ public class IOUtils {
     public static File getFile(Context context, Uri uri) {
         if (uri != null) {
             String path = getPath(context, uri);
-            if (path != null && isLocal(path)) {
+            if (isLocal(path)) {
                 return new File(path);
             }
         }
         return null;
     }
 
-    public static int getFirstFileByte(String fileName) {
-        int read;
-        InputStream is = null;
-        try {
-            is = new FileInputStream(fileName);
-            read = is.read();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } finally {
-            try {
-                if (is != null) is.close();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        }
-        return read;
-    }
 }
