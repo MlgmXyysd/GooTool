@@ -1,6 +1,7 @@
 package net.infotrek.util;
 
-import java.util.*;
+import java.util.Map;
+import java.util.Stack;
 
 /**
  * This class allows you to generate an XML text document by pushing and popping tags from a stack maintained
@@ -12,28 +13,8 @@ public class XMLStringBuffer {
     private static final String INDENT_INCREMENT = "  ";
 
     private StringBuffer buffer;
-    private final Stack<Tag> stack = new Stack<Tag>();
+    private final Stack<Tag> stack = new Stack<>();
     private String currentIndent = "";
-
-    public XMLStringBuffer() {
-        init(new StringBuffer(), "");
-    }
-
-    /**
-     * @param start A string of spaces indicating the indentation at which to start the generation.
-     */
-    public XMLStringBuffer(String start) {
-        init(new StringBuffer(), start);
-    }
-
-    /**
-     * Set the doctype for this document.
-     *
-     * @param docType The DOCTYPE, without the "!DOCTYPE " string
-     */
-    public void setDocType(String docType) {
-        buffer.append("<!DOCTYPE ").append(docType).append(">\n");
-    }
 
     /**
      * @param buffer The StringBuffer to use internally to represent the document.
@@ -93,13 +74,6 @@ public class XMLStringBuffer {
     }
 
     /**
-     * Pop the last pushed element without verifying it if matches the previously pushed tag.
-     */
-    public void pop() {
-        pop(null);
-    }
-
-    /**
      * Pop the last pushed element and throws an AssertionError if it doesn't match the corresponding tag that was pushed
      * earlier.
      *
@@ -120,75 +94,12 @@ public class XMLStringBuffer {
     /**
      * Add a required element to the current tag.  An opening and closing tag will be generated even if value is null.
      *
-     * @param tagName The name of the tag
-     * @param value   The value for this tag
-     */
-    public void addRequired(String tagName, String value) {
-        addRequired(tagName, value, null);
-    }
-
-    /**
-     * Add a required element to the current tag.  An opening and closing tag will be generated even if value is null.
-     *
      * @param tagName    The name of the tag
      * @param value      The value for this tag
      * @param attributes A Map containing the attributes (or null)
      */
     public void addRequired(String tagName, String value, Map<String, String> attributes) {
         xmlRequired(buffer, currentIndent, tagName, value, attributes);
-    }
-
-    /**
-     * Add an optional String element to the current tag.  If value is null, nothing is added.
-     *
-     * @param tagName    The name of the tag
-     * @param value      The value for this tag
-     * @param attributes A Map containing the attributes (or null)
-     */
-    public void addOptional(String tagName, String value, Map<String, String> attributes) {
-        xmlOptional(buffer, currentIndent, tagName, value, attributes);
-    }
-
-    /**
-     * Add an optional String element to the current tag.  If value is null, nothing is added.
-     *
-     * @param tagName The name of the tag
-     * @param value   The value for this tag
-     */
-    public void addOptional(String tagName, String value) {
-        addOptional(tagName, value, null);
-    }
-
-    /**
-     * Add an optional Boolean element to the current tag.  If value is null, nothing is added.
-     *
-     * @param tagName    The name of the tag
-     * @param value      The value for this tag
-     * @param attributes A Map containing the attributes (or null)
-     */
-    public void addOptional(String tagName, Boolean value, Map<String, String> attributes) {
-        if (null != value) {
-            xmlOptional(buffer, currentIndent, tagName, value.toString(), attributes);
-        }
-    }
-
-    /**
-     * Add an optional Boolean element to the current tag.  If value is null, nothing is added.
-     *
-     * @param tagName The name of the tag
-     * @param value   The value for this tag
-     */
-    public void addOptional(String tagName, Boolean value) {
-        addOptional(tagName, value, null);
-    }
-
-    /**
-     * Add an empty element tag (e.g. <foo/>)
-     *
-     * @param tagName the tag name
-     */
-    public void addEmptyElement(String tagName) {
-        buffer.append(currentIndent).append("<").append(tagName).append("/>\n");
     }
 
     /**
@@ -202,15 +113,6 @@ public class XMLStringBuffer {
     }
 
     /**
-     * Add a CDATA tag.
-     *
-     * @param content the cdata content to add.
-     */
-    public void addCDATA(String content) {
-        buffer.append(currentIndent).append("<![CDATA[").append(content).append("]]>\n");
-    }
-
-    /**
      * Add a comment.
      *
      * @param comment the comment to add
@@ -219,13 +121,6 @@ public class XMLStringBuffer {
         buffer.append(currentIndent).append("<!-- ");
         buffer.append(comment.replaceAll("--", "- -"));
         buffer.append(" -->\n");
-    }
-
-    /**
-     * @return The StringBuffer used to create the document.
-     */
-    public StringBuffer getStringBuffer() {
-        return buffer;
     }
 
     /**
@@ -252,18 +147,12 @@ public class XMLStringBuffer {
         return result.toString();
     }
 
-    private static void xmlOptional(StringBuffer result, String sp,
-                                    String elementName, String value, Map<String, String> attributes) {
-        if (null != value) {
-            xmlRequired(result, sp, elementName, value, attributes);
-        }
-    }
-
     private static void xmlRequired(StringBuffer result, String sp,
                                     String elementName, String value, Map<String, String> attributes) {
         result.append(xml(sp, elementName, value, attributes));
     }
 
+    @SuppressWarnings("rawtypes")
     private static void xmlOpen(StringBuffer result, String indent,
                                 String tag, Map<String, String> attributes,
                                 boolean noNewLine, boolean alsoClose) {
@@ -286,7 +175,23 @@ public class XMLStringBuffer {
         result.append(indent).append("</").append(tag).append(">\n");
     }
 
-    private class Tag {
+    private static String encodeXml(String in) {
+        StringBuilder out = new StringBuilder();
+
+        for (int i = 0; i < in.length(); ++i) {
+            char ch = in.charAt(i);
+            switch (ch) {
+                case '<' -> out.append("&lt;");
+                case '>' -> out.append("&gt;");
+                case '&' -> out.append("&amp;");
+                default -> out.append(ch);
+            }
+        }
+
+        return out.toString();
+    }
+
+    private static class Tag {
         public String tagName;
         public String indent;
 
@@ -294,29 +199,5 @@ public class XMLStringBuffer {
             tagName = n;
             indent = ind;
         }
-    }
-
-    private static String encodeXml(String in) {
-        StringBuilder out = new StringBuilder();
-
-        for (int i = 0; i < in.length(); ++i) {
-            char ch = in.charAt(i);
-            switch (ch) {
-                case '<':
-                    out.append("&lt;");
-                    break;
-                case '>':
-                    out.append("&gt;");
-                    break;
-                case '&':
-                    out.append("&amp;");
-                    break;
-                default:
-                    out.append(ch);
-                    break;
-            }
-        }
-
-        return out.toString();
     }
 }
